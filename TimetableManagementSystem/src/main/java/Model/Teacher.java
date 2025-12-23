@@ -8,6 +8,15 @@ package Model;
  *
  * @author kabil
  */
-public class Teacher {
-    
+public class Teacher extends User {
+    private String teacherId;
+
+    public Teacher(String userId, String name, String email, String teacherId) {
+        super(userId, name, email, "TEACHER");
+        this.teacherId = teacherId;
+    }
+
+    public String getTeacherId() {
+        return teacherId;
+    }
 }

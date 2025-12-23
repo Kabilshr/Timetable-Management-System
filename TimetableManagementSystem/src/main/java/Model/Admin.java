@@ -8,6 +8,9 @@ package Model;
  *
  * @author kabil
  */
-public class Admin {
-    
+public class Admin extends User {
+
+    public Admin(String userId, String name, String email) {
+        super(userId, name, email, "ADMIN");
+    }
 }

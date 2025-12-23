@@ -9,5 +9,14 @@ package Model;
  * @author kabil
  */
 public class Subject {
-    
+    private final String subjectCode;
+    private final String subjectName;
+
+    public Subject(String subjectCode, String subjectName) {
+        this.subjectCode = subjectCode;
+        this.subjectName = subjectName;
+    }
+
+    public String getSubjectCode() { return subjectCode; }
+    public String getSubjectName() { return subjectName; }
 }
