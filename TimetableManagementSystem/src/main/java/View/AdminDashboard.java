@@ -4,18 +4,23 @@
  */
 package View;
 
+import Model.Admin;
+import Model.User;
+
 /**
  *
  * @author kabil
  */
-public class MainFrame extends javax.swing.JFrame {
+public class AdminDashboard extends javax.swing.JFrame {
     
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(MainFrame.class.getName());
-
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(AdminDashboard.class.getName());
+    private Admin admin;
     /**
-     * Creates new form MainFrame
-     */
-    public MainFrame() {
+     * Creates new form AdminDashboard
+     * @param admin
+    */
+    public AdminDashboard(User admin) {
+        this.admin = (Admin) admin;
         initComponents();
     }
 
@@ -66,7 +71,7 @@ public class MainFrame extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new MainFrame().setVisible(true));
+        // java.awt.EventQueue.invokeLater(() -> new AdminDashboard().setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
