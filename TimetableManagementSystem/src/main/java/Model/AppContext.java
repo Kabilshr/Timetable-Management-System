@@ -10,8 +10,16 @@ package Model;
  */
 public class AppContext {
     private static AnnouncementArrayList announcements = new AnnouncementArrayList();
+    
+    // Static field to hold the shared instance of the Timetable
+    private static Timetable timetable = new Timetable();
 
     public static AnnouncementArrayList getAnnouncementQueue() {
         return announcements;
+    }
+    
+    // Method to get the shared instance of the Timetable
+    public static Timetable getTimetable() {
+        return timetable;
     }
 }
