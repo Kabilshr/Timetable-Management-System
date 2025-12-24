@@ -4,21 +4,23 @@
  */
 package Model;
 
+import java.time.LocalTime;
+
 /**
  *
  * @author kabil
  */
 public class TimetableEntry {
     private String day;
-    private String startTime;
-    private String endTime;
+    private LocalTime startTime;
+    private LocalTime endTime;
 
     private String className;
     private Subject subject;
     private Teacher teacher;
     private String room;
 
-    public TimetableEntry(String day, String startTime, String endTime, String className, Subject subject, Teacher teacher, String room) {
+    public TimetableEntry(String day, LocalTime startTime, LocalTime endTime, String className, Subject subject, Teacher teacher, String room) {
         this.day = day;
         this.startTime = startTime;
         this.endTime = endTime;
@@ -29,8 +31,8 @@ public class TimetableEntry {
     }
 
     public String getDay() { return day; }
-    public String getStartTime() { return startTime; }
-    public String getEndTime() { return endTime; }
+    public LocalTime getStartTime() { return startTime; }
+    public LocalTime getEndTime() { return endTime; }
     public String getClassName() { return className; }
     public Subject getSubject() { return subject; }
     public Teacher getTeacher() { return teacher; }
