@@ -9,9 +9,9 @@ package Model;
  * @author kabil
  */
 public class AppContext {
-    private static AnnouncementQueue announcementQueue = new AnnouncementQueue();
+    private static AnnouncementArrayList announcements = new AnnouncementArrayList();
 
-    public static AnnouncementQueue getAnnouncementQueue() {
-        return announcementQueue;
+    public static AnnouncementArrayList getAnnouncementQueue() {
+        return announcements;
     }
 }

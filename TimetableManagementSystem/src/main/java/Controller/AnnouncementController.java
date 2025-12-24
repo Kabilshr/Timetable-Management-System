@@ -5,7 +5,7 @@
 package Controller;
 
 import Model.Announcement;
-import Model.AnnouncementQueue;
+import Model.AnnouncementArrayList;
 import Model.AppContext;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -20,7 +20,7 @@ public class AnnouncementController {
         model.setRowCount(0);
 
         // Get shared announcement queue
-        AnnouncementQueue queue = AppContext.getAnnouncementQueue();
+        AnnouncementArrayList queue = AppContext.getAnnouncementQueue();
 
         // Populate table
         for (Announcement announcement : queue.getAllAnnouncements()) {

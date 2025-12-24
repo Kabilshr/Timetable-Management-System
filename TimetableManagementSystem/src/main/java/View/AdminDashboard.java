@@ -7,7 +7,7 @@ package View;
 import Controller.AnnouncementController;
 import Model.Admin;
 import Model.Announcement;
-import Model.AnnouncementQueue;
+import Model.AnnouncementArrayList;
 import Model.AppContext;
 import Model.User;
 import java.awt.CardLayout;
@@ -21,7 +21,7 @@ public class AdminDashboard extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(AdminDashboard.class.getName());
     private Admin admin;
-    AnnouncementQueue announcementQueue = AppContext.getAnnouncementQueue();
+    AnnouncementArrayList announcementQueue = AppContext.getAnnouncementQueue();
     /**
      * Creates new form AdminDashboard
      * @param admin
@@ -173,6 +173,11 @@ public class AdminDashboard extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jTable1);
 
         jButton4.setText("Delete");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         jButton6.setText("Send");
         jButton6.addActionListener(new java.awt.event.ActionListener() {
@@ -310,6 +315,50 @@ public class AdminDashboard extends javax.swing.JFrame {
         );
         AnnouncementController.updateAnnouncementTable(jTable1);
     }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+        int selectedRow = jTable1.getSelectedRow();
+
+        // No row selected
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(
+                this,
+                "Please select a record to delete.",
+                "No Selection",
+                JOptionPane.WARNING_MESSAGE
+            );
+            return;
+        }
+
+        // Confirmation dialog
+        int confirm = JOptionPane.showConfirmDialog(
+            this,
+            "Are you sure you want to delete the selected record?",
+            "Confirm Delete",
+            JOptionPane.YES_NO_OPTION
+        );
+
+        if (confirm != JOptionPane.YES_OPTION) {
+            return;
+        }
+
+        // Remove from the underlying list
+        AppContext
+            .getAnnouncementQueue()
+            .getAllAnnouncements()
+            .remove(selectedRow);
+
+        // Refresh table
+        AnnouncementController.updateAnnouncementTable(jTable1);
+
+        JOptionPane.showMessageDialog(
+            this,
+            "Record deleted successfully.",
+            "Deleted",
+            JOptionPane.INFORMATION_MESSAGE
+        );
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
      * @param args the command line arguments
