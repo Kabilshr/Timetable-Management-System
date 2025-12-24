@@ -8,13 +8,10 @@ package Model;
  *
  * @author kabil
  */
-public class Announcement {
-    private String message;
+public class AppContext {
+    private static AnnouncementQueue announcementQueue = new AnnouncementQueue();
 
-    public Announcement(String message) {
-        this.message = message;
-
+    public static AnnouncementQueue getAnnouncementQueue() {
+        return announcementQueue;
     }
-
-    public String getMessage() { return message; }
 }
