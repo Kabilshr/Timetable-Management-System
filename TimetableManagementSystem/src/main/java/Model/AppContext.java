@@ -60,4 +60,20 @@ public class AppContext {
     public static void removeSubjectByCode(String subjectCode) {
         subjects.removeIf(subject -> subject.getSubjectCode().equals(subjectCode));
     }
+    
+    public static void initializeSampleData() {
+        // Adding sample teachers
+        teachers.add(new Teacher("T001", "John Smith", "john.smith@mail.com"));
+        teachers.add(new Teacher("T002", "Alice Johnson", "alice.johnson@mail.com"));
+        teachers.add(new Teacher("T003", "Michael Brown", "michael.brown@mail.com"));
+        teachers.add(new Teacher("T004", "Emily Davis", "emily.davis@mail.com"));
+        teachers.add(new Teacher("T005", "David Wilson", "david.wilson@mail.com"));
+
+        // Adding sample subjects
+        subjects.add(new Subject("CS101", "Introduction to Computer Science"));
+        subjects.add(new Subject("MATH201", "Calculus II"));
+        subjects.add(new Subject("ENG301", "English Literature"));
+        subjects.add(new Subject("BIO102", "General Biology"));
+        subjects.add(new Subject("CHEM202", "Organic Chemistry"));
+    }
 }

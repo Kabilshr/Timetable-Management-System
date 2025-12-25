@@ -4,6 +4,7 @@
  */
 package View;
 import Model.Admin;
+import static Model.AppContext.initializeSampleData;
 import Model.Student;
 import Model.Teacher;
 import Model.User;
@@ -24,6 +25,7 @@ public class LoginPage extends javax.swing.JFrame {
      */
     public LoginPage() {
         initComponents();
+        initializeSampleData();
     }
 
     /**
