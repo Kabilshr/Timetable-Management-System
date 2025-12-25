@@ -45,13 +45,16 @@ public class LoginPage extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(255, 255, 255));
+
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLabel1.setText("Timetable Management System");
 
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Log-in"));
 
-        jTextField1.setBackground(new java.awt.Color(242, 242, 242));
         jTextField1.setAutoscrolls(false);
         jTextField1.setBorder(javax.swing.BorderFactory.createTitledBorder("Username"));
         jTextField1.setMargin(new java.awt.Insets(1, 6, 1, 6));
@@ -62,7 +65,6 @@ public class LoginPage extends javax.swing.JFrame {
             }
         });
 
-        jPasswordField1.setBackground(new java.awt.Color(242, 242, 242));
         jPasswordField1.setBorder(javax.swing.BorderFactory.createTitledBorder("Password"));
         jPasswordField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -70,6 +72,7 @@ public class LoginPage extends javax.swing.JFrame {
             }
         });
 
+        jButton1.setBackground(new java.awt.Color(255, 204, 0));
         jButton1.setText("Login");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

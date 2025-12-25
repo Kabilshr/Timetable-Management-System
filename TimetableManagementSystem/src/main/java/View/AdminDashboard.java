@@ -108,8 +108,10 @@ public class AdminDashboard extends javax.swing.JFrame {
         jButton18 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(255, 255, 255));
 
-        jPanel2.setBackground(new java.awt.Color(51, 255, 255));
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel2.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel1.setText("Admin Dashboard");
@@ -142,7 +144,8 @@ public class AdminDashboard extends javax.swing.JFrame {
                 .addContainerGap(15, Short.MAX_VALUE))
         );
 
-        jPanel3.setBackground(new java.awt.Color(102, 255, 255));
+        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel3.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         jButton2.setText("Time Table");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -200,6 +203,8 @@ public class AdminDashboard extends javax.swing.JFrame {
         );
 
         jPanel4.setLayout(new java.awt.CardLayout());
+
+        jPanel5.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel2.setText("Time Table");
@@ -299,6 +304,8 @@ public class AdminDashboard extends javax.swing.JFrame {
 
         jPanel4.add(jPanel5, "card2");
 
+        jPanel6.setBackground(new java.awt.Color(255, 255, 255));
+
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel3.setText("Announcement");
 
@@ -371,6 +378,8 @@ public class AdminDashboard extends javax.swing.JFrame {
 
         jPanel4.add(jPanel6, "card3");
 
+        jPanel7.setBackground(new java.awt.Color(255, 255, 255));
+
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel4.setText("Add Teachers");
 
@@ -389,6 +398,8 @@ public class AdminDashboard extends javax.swing.JFrame {
         if (jTable3.getColumnModel().getColumnCount() > 0) {
             jTable3.getColumnModel().getColumn(2).setHeaderValue("Email");
         }
+
+        jPanel9.setBackground(new java.awt.Color(255, 255, 255));
 
         jTextField2.setBorder(javax.swing.BorderFactory.createTitledBorder("ID"));
 
@@ -490,6 +501,8 @@ public class AdminDashboard extends javax.swing.JFrame {
 
         jPanel4.add(jPanel7, "card4");
 
+        jPanel8.setBackground(new java.awt.Color(255, 255, 255));
+
         jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel5.setText("Add Subjects");
 
@@ -505,6 +518,8 @@ public class AdminDashboard extends javax.swing.JFrame {
             }
         ));
         jScrollPane4.setViewportView(jTable4);
+
+        jPanel10.setBackground(new java.awt.Color(255, 255, 255));
 
         jTextField5.setBorder(javax.swing.BorderFactory.createTitledBorder("Subject Code"));
 
