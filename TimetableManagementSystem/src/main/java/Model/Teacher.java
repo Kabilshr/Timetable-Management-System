@@ -46,4 +46,9 @@ public class Teacher extends User {
     public void setEmail(String email) {
         super.email = email;
     }
+    
+    @Override
+    public String toString() {
+        return teacherId + " - " + name;
+    }
 }

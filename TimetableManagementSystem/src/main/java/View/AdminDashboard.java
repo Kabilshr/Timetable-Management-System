@@ -13,13 +13,14 @@ import Model.AppContext;
 import Model.Subject;
 import Model.Teacher;
 import Controller.TeacherTableController;
-import Model.Timetable;
+import Controller.TimetableTableController;
 import Model.TimetableEntry;
 import Model.User;
 import java.awt.CardLayout;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import javax.swing.BoxLayout;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -732,97 +733,146 @@ public class AdminDashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        // TODO add your handling code here:
-       // Create a panel to hold multiple input fields
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 
-        // Create labels and text fields for each input
-        JTextField dayField = new JTextField(15);
-        JTextField startTimeField = new JTextField(15);
-        JTextField endTimeField = new JTextField(15);
+        // Day dropdown
+        String[] days = { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday" };
+        JComboBox<String> dayCombo = new JComboBox<>(days);
+
+        // Hour & minute dropdowns
+        String[] hours = { "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18" };
+        String[] minutes = { "00", "15", "30", "45" };
+
+        JComboBox<String> startHourCombo = new JComboBox<>(hours);
+        JComboBox<String> startMinuteCombo = new JComboBox<>(minutes);
+
+        JComboBox<String> endHourCombo = new JComboBox<>(hours);
+        JComboBox<String> endMinuteCombo = new JComboBox<>(minutes);
+
         JTextField classNameField = new JTextField(15);
         JTextField roomField = new JTextField(15);
-        JTextField teacherIdField = new JTextField(15);
-        JTextField teacherNameField = new JTextField(15);
-        JTextField teacherEmailField = new JTextField(15);
-        JTextField subjectCodeField = new JTextField(15);
-        JTextField subjectNameField = new JTextField(15);
 
-        // Add the fields to the panel with appropriate labels
-        panel.add(new JLabel("Enter Day (e.g., Monday):"));
-        panel.add(dayField);
-        panel.add(new JLabel("Enter Start Time (HH:mm):"));
-        panel.add(startTimeField);
-        panel.add(new JLabel("Enter End Time (HH:mm):"));
-        panel.add(endTimeField);
-        panel.add(new JLabel("Enter Class Name (e.g., CS-101):"));
+        JComboBox<Teacher> teacherCombo =
+            new JComboBox<>(AppContext.getTeachers().toArray(new Teacher[0]));
+
+        JComboBox<Subject> subjectCombo =
+            new JComboBox<>(AppContext.getSubjects().toArray(new Subject[0]));
+
+        panel.add(new JLabel("Select Day:"));
+        panel.add(dayCombo);
+
+        panel.add(new JLabel("Start Time:"));
+        panel.add(startHourCombo);
+        panel.add(startMinuteCombo);
+
+        panel.add(new JLabel("End Time:"));
+        panel.add(endHourCombo);
+        panel.add(endMinuteCombo);
+
+        panel.add(new JLabel("Class Name:"));
         panel.add(classNameField);
-        panel.add(new JLabel("Enter Room (e.g., Room 101):"));
+
+        panel.add(new JLabel("Room:"));
         panel.add(roomField);
-        panel.add(new JLabel("Enter Teacher ID (e.g., T001):"));
-        panel.add(teacherIdField);
-        panel.add(new JLabel("Enter Teacher Name (e.g., John Doe):"));
-        panel.add(teacherNameField);
-        panel.add(new JLabel("Enter Teacher Email (e.g., johndoe@example.com):"));
-        panel.add(teacherEmailField);
-        panel.add(new JLabel("Enter Subject Code (e.g., CS101):"));
-        panel.add(subjectCodeField);
-        panel.add(new JLabel("Enter Subject Name (e.g., Java Programming):"));
-        panel.add(subjectNameField);
 
-        // Show the dialog to the user
-        int option = JOptionPane.showConfirmDialog(this, panel, "Enter Timetable Entry", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+        panel.add(new JLabel("Teacher:"));
+        panel.add(teacherCombo);
 
-        // If OK is pressed, gather data
-        if (option == JOptionPane.OK_OPTION) {
-            // Get data from the text fields
-            String day = dayField.getText();
-            String startTimeStr = startTimeField.getText();
-            String endTimeStr = endTimeField.getText();
-            String className = classNameField.getText();
-            String room = roomField.getText();
-            String teacherId = teacherIdField.getText();
-            String teacherName = teacherNameField.getText();
-            String teacherEmail = teacherEmailField.getText();
-            String subjectCode = subjectCodeField.getText();
-            String subjectName = subjectNameField.getText();
+        panel.add(new JLabel("Subject:"));
+        panel.add(subjectCombo);
 
-            // Validate the inputs
-            if (day.isEmpty() || startTimeStr.isEmpty() || endTimeStr.isEmpty() || className.isEmpty() || room.isEmpty() || 
-                teacherId.isEmpty() || teacherName.isEmpty() || teacherEmail.isEmpty() || subjectCode.isEmpty() || subjectName.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "All fields must be filled.", "Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
+        int option = JOptionPane.showConfirmDialog(
+            this,
+            panel,
+            "Add Timetable Entry",
+            JOptionPane.OK_CANCEL_OPTION,
+            JOptionPane.PLAIN_MESSAGE
+        );
 
-            // Parse start and end times
-            LocalTime startTime = null;
-            LocalTime endTime = null;
-            try {
-                startTime = LocalTime.parse(startTimeStr);  // Parse the time in HH:mm format
-                endTime = LocalTime.parse(endTimeStr);
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(this, "Invalid time format. Please use HH:mm.", "Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-
-            // Create Teacher and Subject objects
-            Teacher teacher = new Teacher(teacherId, teacherName, teacherEmail);
-            Subject subject = new Subject(subjectCode, subjectName);
-
-            // Create the new TimetableEntry
-            TimetableEntry newEntry = new TimetableEntry(day, startTime, endTime, className, subject, teacher, room);
-
-            // Add the new entry to the timetable (AppContext holds the shared timetable)
-            Timetable timetable = AppContext.getTimetable();
-            timetable.addEntry(newEntry);
-
-            // Refresh the table or any display component
-            AnnouncementController.updateAnnouncementTable(jTable1);  // Assuming jTable1 is the timetable display
-
-            // Success message
-            JOptionPane.showMessageDialog(this, "Timetable entry added successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+        if (option != JOptionPane.OK_OPTION) {
+            return;
         }
+
+        String day = (String) dayCombo.getSelectedItem();
+        String className = classNameField.getText();
+        String room = roomField.getText();
+
+        Teacher teacher = (Teacher) teacherCombo.getSelectedItem();
+        Subject subject = (Subject) subjectCombo.getSelectedItem();
+
+        if (className.equals("") || room.equals("") || teacher == null || subject == null) {
+            JOptionPane.showMessageDialog(
+                this,
+                "All fields must be filled.",
+                "Validation Error",
+                JOptionPane.ERROR_MESSAGE
+            );
+            return;
+        }
+
+        int sh = Integer.parseInt((String) startHourCombo.getSelectedItem());
+        int sm = Integer.parseInt((String) startMinuteCombo.getSelectedItem());
+        int eh = Integer.parseInt((String) endHourCombo.getSelectedItem());
+        int em = Integer.parseInt((String) endMinuteCombo.getSelectedItem());
+
+        LocalTime startTime = LocalTime.of(sh, sm);
+        LocalTime endTime = LocalTime.of(eh, em);
+
+        // --- TIME VALIDATION ---
+        LocalTime earliest = LocalTime.of(8, 0);
+        LocalTime latest = LocalTime.of(18, 0);
+
+        if (startTime.isBefore(earliest) || endTime.isAfter(latest)) {
+            JOptionPane.showMessageDialog(
+                this,
+                "Time must be between 08:00 and 18:00.",
+                "Invalid Time",
+                JOptionPane.ERROR_MESSAGE
+            );
+            return;
+        }
+
+        if (startTime.equals(endTime)) {
+            JOptionPane.showMessageDialog(
+                this,
+                "Start time and end time cannot be the same.",
+                "Invalid Time",
+                JOptionPane.ERROR_MESSAGE
+            );
+            return;
+        }
+
+        if (!endTime.isAfter(startTime)) {
+            JOptionPane.showMessageDialog(
+                this,
+                "End time must be after start time.",
+                "Invalid Time",
+                JOptionPane.ERROR_MESSAGE
+            );
+            return;
+        }
+
+        TimetableEntry entry = new TimetableEntry(
+            day,
+            startTime,
+            endTime,
+            className,
+            subject,
+            teacher,
+            room
+        );
+
+        AppContext.getTimetable().addEntry(entry);
+
+        TimetableTableController.updateTimetableTable(jTable2);
+
+        JOptionPane.showMessageDialog(
+            this,
+            "Timetable entry added successfully.",
+            "Success",
+            JOptionPane.INFORMATION_MESSAGE
+        );
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
