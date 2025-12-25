@@ -42,6 +42,12 @@ public class AdminDashboard extends javax.swing.JFrame {
     public AdminDashboard(User admin) {
         this.admin = (Admin) admin;
         initComponents();
+        AppContext.initializeSampleData();
+
+        TeacherTableController.updateTeacherTable(jTable3);
+        SubjectTableController.updateSubjectTable(jTable4);
+        TimetableTableController.updateTimetableTable(jTable2);
+
     }
 
     /**
@@ -726,10 +732,178 @@ public class AdminDashboard extends javax.swing.JFrame {
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
         // TODO add your handling code here:
+        int selectedRow = jTable2.getSelectedRow();
+
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(
+                this,
+                "Please select a timetable entry to delete.",
+                "No Selection",
+                JOptionPane.WARNING_MESSAGE
+            );
+            return;
+        }
+
+        int confirm = JOptionPane.showConfirmDialog(
+            this,
+            "Are you sure you want to delete this timetable entry?",
+            "Confirm Delete",
+            JOptionPane.YES_NO_OPTION,
+            JOptionPane.WARNING_MESSAGE
+        );
+
+        if (confirm != JOptionPane.YES_OPTION) {
+            return;
+        }
+
+        // Remove from model
+        AppContext.getTimetable().getEntries().remove(selectedRow);
+
+        // Refresh table
+        TimetableTableController.updateTimetableTable(jTable2);
+
+        JOptionPane.showMessageDialog(
+            this,
+            "Timetable entry deleted successfully.",
+            "Success",
+            JOptionPane.INFORMATION_MESSAGE
+        );
     }//GEN-LAST:event_jButton9ActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
         // TODO add your handling code here:
+        int selectedRow = jTable2.getSelectedRow();
+
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(
+                this,
+                "Please select a timetable entry to edit.",
+                "No Selection",
+                JOptionPane.WARNING_MESSAGE
+            );
+            return;
+        }
+
+        TimetableEntry entry =
+            AppContext.getTimetable().getEntries().get(selectedRow);
+
+        JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+
+        // Day
+        String[] days = { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday" };
+        JComboBox<String> dayCombo = new JComboBox<>(days);
+        dayCombo.setSelectedItem(entry.getDay());
+
+        // Time dropdowns
+        String[] hours = { "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18" };
+        String[] minutes = { "00", "15", "30", "45" };
+
+        JComboBox<String> startHour = new JComboBox<>(hours);
+        JComboBox<String> startMinute = new JComboBox<>(minutes);
+        JComboBox<String> endHour = new JComboBox<>(hours);
+        JComboBox<String> endMinute = new JComboBox<>(minutes);
+
+        startHour.setSelectedItem(String.format("%02d", entry.getStartTime().getHour()));
+        startMinute.setSelectedItem(String.format("%02d", entry.getStartTime().getMinute()));
+        endHour.setSelectedItem(String.format("%02d", entry.getEndTime().getHour()));
+        endMinute.setSelectedItem(String.format("%02d", entry.getEndTime().getMinute()));
+
+        JTextField classField = new JTextField(entry.getClassName(), 15);
+        JTextField roomField = new JTextField(entry.getRoom(), 15);
+
+        JComboBox<Teacher> teacherCombo =
+            new JComboBox<>(AppContext.getTeachers().toArray(new Teacher[0]));
+        teacherCombo.setSelectedItem(entry.getTeacher());
+
+        JComboBox<Subject> subjectCombo =
+            new JComboBox<>(AppContext.getSubjects().toArray(new Subject[0]));
+        subjectCombo.setSelectedItem(entry.getSubject());
+
+        // Build UI
+        panel.add(new JLabel("Day:"));
+        panel.add(dayCombo);
+
+        panel.add(new JLabel("Start Time:"));
+        panel.add(startHour);
+        panel.add(startMinute);
+
+        panel.add(new JLabel("End Time:"));
+        panel.add(endHour);
+        panel.add(endMinute);
+
+        panel.add(new JLabel("Class:"));
+        panel.add(classField);
+
+        panel.add(new JLabel("Room:"));
+        panel.add(roomField);
+
+        panel.add(new JLabel("Teacher:"));
+        panel.add(teacherCombo);
+
+        panel.add(new JLabel("Subject:"));
+        panel.add(subjectCombo);
+
+        int option = JOptionPane.showConfirmDialog(
+            this,
+            panel,
+            "Edit Timetable Entry",
+            JOptionPane.OK_CANCEL_OPTION,
+            JOptionPane.PLAIN_MESSAGE
+        );
+
+        if (option != JOptionPane.OK_OPTION) {
+            return;
+        }
+
+        // Validation
+        if (classField.getText().equals("") || roomField.getText().equals("")) {
+            JOptionPane.showMessageDialog(
+                this,
+                "All fields must be filled.",
+                "Validation Error",
+                JOptionPane.ERROR_MESSAGE
+            );
+            return;
+        }
+
+        LocalTime startTime = LocalTime.of(
+            Integer.parseInt((String) startHour.getSelectedItem()),
+            Integer.parseInt((String) startMinute.getSelectedItem())
+        );
+
+        LocalTime endTime = LocalTime.of(
+            Integer.parseInt((String) endHour.getSelectedItem()),
+            Integer.parseInt((String) endMinute.getSelectedItem())
+        );
+
+        if (!endTime.isAfter(startTime)) {
+            JOptionPane.showMessageDialog(
+                this,
+                "End time must be after start time.",
+                "Invalid Time",
+                JOptionPane.ERROR_MESSAGE
+            );
+            return;
+        }
+
+        // Apply changes
+        entry.setDay((String) dayCombo.getSelectedItem());
+        entry.setStartTime(startTime);
+        entry.setEndTime(endTime);
+        entry.setClassName(classField.getText());
+        entry.setRoom(roomField.getText());
+        entry.setTeacher((Teacher) teacherCombo.getSelectedItem());
+        entry.setSubject((Subject) subjectCombo.getSelectedItem());
+
+        TimetableTableController.updateTimetableTable(jTable2);
+
+        JOptionPane.showMessageDialog(
+            this,
+            "Timetable entry updated successfully.",
+            "Success",
+            JOptionPane.INFORMATION_MESSAGE
+        );
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed

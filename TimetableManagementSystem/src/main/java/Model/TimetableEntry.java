@@ -37,4 +37,32 @@ public class TimetableEntry {
     public Subject getSubject() { return subject; }
     public Teacher getTeacher() { return teacher; }
     public String getRoom() { return room; }
+    
+    public void setDay(String day) {
+        this.day = day;
+    }
+
+    public void setStartTime(LocalTime startTime) {
+        this.startTime = startTime;
+    }
+
+    public void setEndTime(LocalTime endTime) {
+        this.endTime = endTime;
+    }
+
+    public void setClassName(String className) {
+        this.className = className;
+    }
+
+    public void setRoom(String room) {
+        this.room = room;
+    }
+
+    public void setTeacher(Teacher teacher) {
+        this.teacher = teacher;
+    }
+
+    public void setSubject(Subject subject) {
+        this.subject = subject;
+    }
 }

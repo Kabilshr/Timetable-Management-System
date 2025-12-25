@@ -4,6 +4,7 @@
  */
 package Model;
 
+import java.time.LocalTime;
 import java.util.ArrayList;
 
 /**
@@ -75,5 +76,107 @@ public class AppContext {
         subjects.add(new Subject("ENG301", "English Literature"));
         subjects.add(new Subject("BIO102", "General Biology"));
         subjects.add(new Subject("CHEM202", "Organic Chemistry"));
+        
+        Timetable timetable = getTimetable();
+
+        timetable.addEntry(new TimetableEntry(
+            "Monday",
+            LocalTime.of(9, 0),
+            LocalTime.of(10, 0),
+            "CS-1A",
+            subjects.get(0),
+            teachers.get(0),
+            "Room 101"
+        ));
+
+        timetable.addEntry(new TimetableEntry(
+            "Monday",
+            LocalTime.of(10, 0),
+            LocalTime.of(11, 0),
+            "CS-1B",
+            subjects.get(1),
+            teachers.get(1),
+            "Room 102"
+        ));
+
+        timetable.addEntry(new TimetableEntry(
+            "Tuesday",
+            LocalTime.of(9, 0),
+            LocalTime.of(10, 0),
+            "CS-2A",
+            subjects.get(2),
+            teachers.get(2),
+            "Room 201"
+        ));
+
+        timetable.addEntry(new TimetableEntry(
+            "Tuesday",
+            LocalTime.of(10, 0),
+            LocalTime.of(11, 0),
+            "CS-2B",
+            subjects.get(3),
+            teachers.get(3),
+            "Room 202"
+        ));
+
+        timetable.addEntry(new TimetableEntry(
+            "Wednesday",
+            LocalTime.of(11, 0),
+            LocalTime.of(12, 0),
+            "CS-3A",
+            subjects.get(4),
+            teachers.get(4),
+            "Room 301"
+        ));
+
+        timetable.addEntry(new TimetableEntry(
+            "Wednesday",
+            LocalTime.of(12, 0),
+            LocalTime.of(13, 0),
+            "CS-3B",
+            subjects.get(0),
+            teachers.get(1),
+            "Room 302"
+        ));
+
+        timetable.addEntry(new TimetableEntry(
+            "Thursday",
+            LocalTime.of(9, 0),
+            LocalTime.of(10, 0),
+            "CS-1A",
+            subjects.get(1),
+            teachers.get(2),
+            "Room 101"
+        ));
+
+        timetable.addEntry(new TimetableEntry(
+            "Thursday",
+            LocalTime.of(10, 0),
+            LocalTime.of(11, 0),
+            "CS-2A",
+            subjects.get(2),
+            teachers.get(3),
+            "Room 201"
+        ));
+
+        timetable.addEntry(new TimetableEntry(
+            "Friday",
+            LocalTime.of(11, 0),
+            LocalTime.of(12, 0),
+            "CS-3A",
+            subjects.get(3),
+            teachers.get(4),
+            "Room 301"
+        ));
+
+        timetable.addEntry(new TimetableEntry(
+            "Friday",
+            LocalTime.of(12, 0),
+            LocalTime.of(13, 0),
+            "CS-1B",
+            subjects.get(4),
+            teachers.get(0),
+            "Room 102"
+        ));
     }
 }
