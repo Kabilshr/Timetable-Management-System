@@ -19,4 +19,31 @@ public class Teacher extends User {
     public String getTeacherId() {
         return teacherId;
     }
+    
+    // Setter for teacherId
+    public void setTeacherId(String teacherId) {
+        this.teacherId = teacherId;
+    }
+
+    // Getter for name (inherited from User)
+    @Override
+    public String getName() {
+        return super.getName();
+    }
+
+    // Setter for name
+    public void setName(String name) {
+        super.name = name;
+    }
+
+    // Getter for email (inherited from User)
+    @Override
+    public String getEmail() {
+        return super.getEmail();
+    }
+
+    // Setter for email
+    public void setEmail(String email) {
+        super.email = email;
+    }
 }

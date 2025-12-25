@@ -17,6 +17,13 @@ public class Subject {
         this.subjectName = subjectName;
     }
 
-    public String getSubjectCode() { return subjectCode; }
-    public String getSubjectName() { return subjectName; }
+    // Getter for subjectCode
+    public String getSubjectCode() {
+        return subjectCode;
+    }
+    
+    // Getter for subjectName
+    public String getSubjectName() {
+        return subjectName;
+    }
 }
