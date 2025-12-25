@@ -172,7 +172,7 @@ public class LoginPage extends javax.swing.JFrame {
 
         // TEACHER
         else if (username.equals("teacher1") && password.equals("teach123")) {
-            loggedInUser = new Teacher("T001", "Teacher One", "teacher1@mail.com", "T001");
+            loggedInUser = new Teacher("T001", "Teacher One", "teacher1@mail.com");
         }
 
         else {

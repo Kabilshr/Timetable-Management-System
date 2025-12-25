@@ -11,9 +11,9 @@ package Model;
 public class Teacher extends User {
     private String teacherId;
 
-    public Teacher(String userId, String name, String email, String teacherId) {
+    public Teacher(String userId, String name, String email) {
         super(userId, name, email, "TEACHER");
-        this.teacherId = teacherId;
+        this.teacherId = userId;
     }
 
     public String getTeacherId() {

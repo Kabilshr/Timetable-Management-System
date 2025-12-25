@@ -4,6 +4,8 @@
  */
 package Model;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author kabil
@@ -13,6 +15,11 @@ public class AppContext {
     
     // Static field to hold the shared instance of the Timetable
     private static Timetable timetable = new Timetable();
+    
+    private static ArrayList<Teacher> teachers = new ArrayList<>();  // Store all teachers
+
+    
+
 
     public static AnnouncementArrayList getAnnouncementQueue() {
         return announcements;
@@ -21,5 +28,15 @@ public class AppContext {
     // Method to get the shared instance of the Timetable
     public static Timetable getTimetable() {
         return timetable;
+    }
+    
+    // Getter for teachers list
+    public static ArrayList<Teacher> getTeachers() {
+        return teachers;
+    }
+    
+    // Method to add a teacher
+    public static void addTeacher(Teacher teacher) {
+        teachers.add(teacher);
     }
 }

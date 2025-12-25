@@ -11,11 +11,13 @@ import Model.AnnouncementArrayList;
 import Model.AppContext;
 import Model.Subject;
 import Model.Teacher;
+import Model.TeacherTableController;
 import Model.Timetable;
 import Model.TimetableEntry;
 import Model.User;
 import java.awt.CardLayout;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -77,6 +79,15 @@ public class AdminDashboard extends javax.swing.JFrame {
         jButton6 = new javax.swing.JButton();
         jPanel7 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jTable3 = new javax.swing.JTable();
+        jPanel9 = new javax.swing.JPanel();
+        jTextField2 = new javax.swing.JTextField();
+        jTextField3 = new javax.swing.JTextField();
+        jTextField4 = new javax.swing.JTextField();
+        jButton13 = new javax.swing.JButton();
+        jButton14 = new javax.swing.JButton();
+        jButton15 = new javax.swing.JButton();
         jPanel8 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
 
@@ -249,7 +260,7 @@ public class AdminDashboard extends javax.swing.JFrame {
                         .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(141, Short.MAX_VALUE))
+                .addContainerGap(179, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -267,7 +278,7 @@ public class AdminDashboard extends javax.swing.JFrame {
                     .addComponent(jButton9)
                     .addComponent(jButton8)
                     .addComponent(jButton10))
-                .addContainerGap(116, Short.MAX_VALUE))
+                .addContainerGap(170, Short.MAX_VALUE))
         );
 
         jPanel4.add(jPanel5, "card2");
@@ -326,7 +337,7 @@ public class AdminDashboard extends javax.swing.JFrame {
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 515, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel3))))
-                .addContainerGap(221, Short.MAX_VALUE))
+                .addContainerGap(259, Short.MAX_VALUE))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -339,28 +350,118 @@ public class AdminDashboard extends javax.swing.JFrame {
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton4)
                     .addComponent(jButton6))
-                .addContainerGap(200, Short.MAX_VALUE))
+                .addContainerGap(254, Short.MAX_VALUE))
         );
 
         jPanel4.add(jPanel6, "card3");
 
-        jLabel4.setText("Add teachers");
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel4.setText("Add Teachers");
+
+        jTable3.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "ID", "Name", "Email"
+            }
+        ));
+        jScrollPane3.setViewportView(jTable3);
+
+        jTextField2.setBorder(javax.swing.BorderFactory.createTitledBorder("ID"));
+
+        jTextField3.setBorder(javax.swing.BorderFactory.createTitledBorder("Name"));
+
+        jTextField4.setBorder(javax.swing.BorderFactory.createTitledBorder("Email"));
+
+        jButton13.setText("Add Teacher ");
+        jButton13.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton13ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
+        jPanel9.setLayout(jPanel9Layout);
+        jPanel9Layout.setHorizontalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel9Layout.createSequentialGroup()
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel9Layout.createSequentialGroup()
+                        .addGap(22, 22, 22)
+                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel9Layout.createSequentialGroup()
+                        .addGap(60, 60, 60)
+                        .addComponent(jButton13)))
+                .addContainerGap(34, Short.MAX_VALUE))
+        );
+        jPanel9Layout.setVerticalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel9Layout.createSequentialGroup()
+                .addGap(28, 28, 28)
+                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26)
+                .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30)
+                .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
+                .addComponent(jButton13)
+                .addGap(40, 40, 40))
+        );
+
+        jButton14.setText("Delete");
+        jButton14.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton14ActionPerformed(evt);
+            }
+        });
+
+        jButton15.setText("Edit");
+        jButton15.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton15ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
-                .addContainerGap(404, Short.MAX_VALUE)
-                .addComponent(jLabel4)
-                .addGap(288, 288, 288))
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addGap(30, 30, 30)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel4)
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel7Layout.createSequentialGroup()
+                                .addComponent(jButton15)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jButton14))
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(45, 45, 45)
+                        .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(46, Short.MAX_VALUE))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
-                .addGap(78, 78, 78)
+                .addGap(21, 21, 21)
                 .addComponent(jLabel4)
-                .addContainerGap(429, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton14)
+                    .addComponent(jButton15))
+                .addContainerGap(180, Short.MAX_VALUE))
         );
 
         jPanel4.add(jPanel7, "card4");
@@ -374,14 +475,14 @@ public class AdminDashboard extends javax.swing.JFrame {
             .addGroup(jPanel8Layout.createSequentialGroup()
                 .addGap(120, 120, 120)
                 .addComponent(jLabel5)
-                .addContainerGap(573, Short.MAX_VALUE))
+                .addContainerGap(611, Short.MAX_VALUE))
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel8Layout.createSequentialGroup()
                 .addGap(86, 86, 86)
                 .addComponent(jLabel5)
-                .addContainerGap(421, Short.MAX_VALUE))
+                .addContainerGap(475, Short.MAX_VALUE))
         );
 
         jPanel4.add(jPanel8, "card5");
@@ -612,7 +713,7 @@ public class AdminDashboard extends javax.swing.JFrame {
             }
 
             // Create Teacher and Subject objects
-            Teacher teacher = new Teacher(teacherId, teacherName, teacherEmail, teacherId);
+            Teacher teacher = new Teacher(teacherId, teacherName, teacherEmail);
             Subject subject = new Subject(subjectCode, subjectName);
 
             // Create the new TimetableEntry
@@ -636,11 +737,141 @@ public class AdminDashboard extends javax.swing.JFrame {
 
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
         // TODO add your handling code here:
+        CardLayout cl = (CardLayout) jPanel4.getLayout();
+        cl.show(jPanel4, "card4");
     }//GEN-LAST:event_jButton11ActionPerformed
 
     private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton12ActionPerformed
+
+    private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
+        // TODO add your handling code here:
+        // Get the input from text fields
+        String teacherId = jTextField2.getText();
+        String name = jTextField3.getText();
+        String email = jTextField4.getText();
+
+        // Validate input
+        if (teacherId.equals("") || name.equals("") || email.equals("")) {
+            JOptionPane.showMessageDialog(this,
+                "Please fill in all fields.",
+                "Validation Error",
+                JOptionPane.WARNING_MESSAGE
+            );
+            return;
+        }
+
+        // Create a new Teacher object
+        Teacher newTeacher = new Teacher(teacherId, name, email);
+
+        // Add the new teacher to the AppContext
+        AppContext.addTeacher(newTeacher);
+
+        // Confirmation
+        JOptionPane.showMessageDialog(this,
+            "Teacher added successfully.",
+            "Success",
+            JOptionPane.INFORMATION_MESSAGE
+        );
+
+        // Update Teacher table
+        TeacherTableController.updateTeacherTable(jTable3);
+    }//GEN-LAST:event_jButton13ActionPerformed
+
+    private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton14ActionPerformed
+        // TODO add your handling code here:
+        // Get the selected row index from the table
+        int selectedRow = jTable3.getSelectedRow();
+
+        // If no row is selected, show a message and return
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(this, 
+                "Please select a teacher to delete.", 
+                "No Selection", 
+                JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        // Get the teacher's ID from the selected row
+        String teacherId = (String) jTable3.getValueAt(selectedRow, 0);
+
+        // Confirm with the user before deleting
+        int confirm = JOptionPane.showConfirmDialog(this,
+            "Are you sure you want to delete this teacher?",
+            "Confirm Deletion",
+            JOptionPane.YES_NO_OPTION,
+            JOptionPane.WARNING_MESSAGE);
+
+        // If user confirms, delete the teacher
+        if (confirm == JOptionPane.YES_OPTION) {
+            ArrayList<Teacher> teachers = AppContext.getTeachers();
+
+            // Find and remove the teacher from the list
+            teachers.removeIf(teacher -> teacher.getTeacherId().equals(teacherId));
+
+            // Show a confirmation message
+            JOptionPane.showMessageDialog(this, 
+                "Teacher deleted successfully.", 
+                "Success", 
+                JOptionPane.INFORMATION_MESSAGE);
+
+            // Update the table to reflect the changes
+            TeacherTableController.updateTeacherTable(jTable3);
+        }
+    }//GEN-LAST:event_jButton14ActionPerformed
+
+    private void jButton15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton15ActionPerformed
+        // TODO add your handling code here:
+        // Get the selected row index from the table
+        int selectedRow = jTable3.getSelectedRow();
+
+        // If no row is selected, show a message and return
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(this, 
+                "Please select a teacher to edit.", 
+                "No Selection", 
+                JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        // Get the teacher's ID, name, and email from the selected row
+        String teacherId = (String) jTable3.getValueAt(selectedRow, 0);
+        String name = (String) jTable3.getValueAt(selectedRow, 1);
+        String email = (String) jTable3.getValueAt(selectedRow, 2);
+
+        // Show an input dialog for the new teacher details (this can be enhanced with a custom dialog form)
+        String newName = JOptionPane.showInputDialog(this, "Enter new name:", name);
+        String newEmail = JOptionPane.showInputDialog(this, "Enter new email:", email);
+
+        // If user cancels or leaves the fields empty, return
+        if (newName == null || newEmail == null || newName.equals("") || newEmail.equals("")) {
+            JOptionPane.showMessageDialog(this,
+                "Name and Email are required.",
+                "Validation Error",
+                JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        // Find the teacher object in the AppContext list and update its details
+        ArrayList<Teacher> teachers = AppContext.getTeachers();
+        for (Teacher teacher : teachers) {
+            if (teacher.getTeacherId().equals(teacherId)) {
+                teacher.setName(newName);
+                teacher.setEmail(newEmail);
+                break;
+            }
+        }
+
+        // Show a confirmation message
+        JOptionPane.showMessageDialog(this, 
+            "Teacher details updated successfully.", 
+            "Success", 
+            JOptionPane.INFORMATION_MESSAGE);
+
+        // Update the table to reflect the changes
+        TeacherTableController.updateTeacherTable(jTable3);
+    }//GEN-LAST:event_jButton15ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -672,6 +903,9 @@ public class AdminDashboard extends javax.swing.JFrame {
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton12;
+    private javax.swing.JButton jButton13;
+    private javax.swing.JButton jButton14;
+    private javax.swing.JButton jButton15;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
@@ -693,10 +927,16 @@ public class AdminDashboard extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
+    private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
+    private javax.swing.JTable jTable3;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField jTextField3;
+    private javax.swing.JTextField jTextField4;
     // End of variables declaration//GEN-END:variables
 }
