@@ -114,7 +114,7 @@ public class TeacherDashboard extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/timetable management system icon small.png"))); // NOI18N
-        jLabel1.setText("Admin Dashboard");
+        jLabel1.setText("Teacher Dashboard");
 
         jButton1.setText("Log out");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
