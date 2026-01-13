@@ -4,8 +4,28 @@
  */
 package View;
 
+import Controller.AnnouncementController;
+import Controller.Logout;
+import Controller.SubjectTableController;
+import Model.Admin;
+import Model.Announcement;
+import Model.AnnouncementArrayList;
+import Model.AppContext;
+import Model.Subject;
 import Model.Teacher;
+import Controller.TeacherTableController;
+import Controller.TimetableTableController;
+import Model.TimetableEntry;
 import Model.User;
+import java.awt.CardLayout;
+import java.time.LocalTime;
+import java.util.ArrayList;
+import javax.swing.BoxLayout;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 /**
  *
@@ -15,14 +35,20 @@ public class TeacherDashboard extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(TeacherDashboard.class.getName());
     private Teacher teacher;
-    
+    AnnouncementArrayList announcementQueue = AppContext.getAnnouncementQueue();
     /**
-     * Creates new form TeacherDashboard
+     * Creates new form AdminDashboard
      * @param teacher
-     */
+    */
     public TeacherDashboard(User teacher) {
         this.teacher = (Teacher) teacher;
         initComponents();
+        AppContext.initializeSampleData();
+
+        TeacherTableController.updateTeacherTable(jTable3);
+        SubjectTableController.updateSubjectTable(jTable4);
+        TimetableTableController.updateTimetableTable(jTable2);
+
     }
 
     /**
@@ -34,21 +60,1220 @@ public class TeacherDashboard extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        jPanel3 = new javax.swing.JPanel();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        jButton11 = new javax.swing.JButton();
+        jButton12 = new javax.swing.JButton();
+        jPanel4 = new javax.swing.JPanel();
+        jPanel5 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTable2 = new javax.swing.JTable();
+        jTextField1 = new javax.swing.JTextField();
+        jButton5 = new javax.swing.JButton();
+        jButton7 = new javax.swing.JButton();
+        jButton8 = new javax.swing.JButton();
+        jButton9 = new javax.swing.JButton();
+        jPanel6 = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        jButton4 = new javax.swing.JButton();
+        jButton6 = new javax.swing.JButton();
+        jPanel7 = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jTable3 = new javax.swing.JTable();
+        jPanel9 = new javax.swing.JPanel();
+        jTextField2 = new javax.swing.JTextField();
+        jTextField3 = new javax.swing.JTextField();
+        jTextField4 = new javax.swing.JTextField();
+        jButton13 = new javax.swing.JButton();
+        jButton14 = new javax.swing.JButton();
+        jButton15 = new javax.swing.JButton();
+        jPanel8 = new javax.swing.JPanel();
+        jLabel5 = new javax.swing.JLabel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        jTable4 = new javax.swing.JTable();
+        jPanel10 = new javax.swing.JPanel();
+        jTextField5 = new javax.swing.JTextField();
+        jTextField6 = new javax.swing.JTextField();
+        jButton17 = new javax.swing.JButton();
+        jButton18 = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(255, 255, 255));
+
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel2.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/timetable management system icon small.png"))); // NOI18N
+        jLabel1.setText("Admin Dashboard");
+
+        jButton1.setText("Log out");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 666, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addGap(35, 35, 35))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jButton1))
+                .addContainerGap(13, Short.MAX_VALUE))
+        );
+
+        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel3.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
+        jButton2.setText("Time Table");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        jButton3.setText("Announcement");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
+        jButton11.setText("Add Teacher");
+        jButton11.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton11ActionPerformed(evt);
+            }
+        });
+
+        jButton12.setText("Add Subject");
+        jButton12.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton12ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(34, Short.MAX_VALUE))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(42, 42, 42)
+                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton11, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButton12, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jPanel4.setLayout(new java.awt.CardLayout());
+
+        jPanel5.setBackground(new java.awt.Color(255, 255, 255));
+
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel2.setText("Time Table");
+
+        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "Day", "Start Time", "End Time", "Class", "Subject", "Teacher", "Room"
+            }
+        ));
+        jScrollPane2.setViewportView(jTable2);
+
+        jTextField1.setText("Search");
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField1ActionPerformed(evt);
+            }
+        });
+
+        jButton5.setText("🔎");
+
+        jButton7.setText("Add");
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
+
+        jButton8.setText("Edit");
+        jButton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton8ActionPerformed(evt);
+            }
+        });
+
+        jButton9.setText("Delete");
+        jButton9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton9ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGap(31, 31, 31)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addComponent(jButton7)
+                        .addGap(8, 8, 8)
+                        .addComponent(jButton8)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton9))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 589, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel5Layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton5))
+                .addGap(5, 5, 5)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 324, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton7)
+                    .addComponent(jButton9)
+                    .addComponent(jButton8))
+                .addContainerGap(140, Short.MAX_VALUE))
+        );
+
+        jPanel4.add(jPanel5, "card2");
+
+        jPanel6.setBackground(new java.awt.Color(255, 255, 255));
+
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel3.setText("Announcement");
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null},
+                {null},
+                {null},
+                {null}
+            },
+            new String [] {
+                "Message"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(jTable1);
+
+        jButton4.setText("Delete");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+
+        jButton6.setText("Send");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton6))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel6Layout.createSequentialGroup()
+                        .addGap(25, 25, 25)
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 515, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton4)
+                    .addComponent(jButton6))
+                .addContainerGap(224, Short.MAX_VALUE))
+        );
+
+        jPanel4.add(jPanel6, "card3");
+
+        jPanel7.setBackground(new java.awt.Color(255, 255, 255));
+
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel4.setText("Add Teachers");
+
+        jTable3.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "ID", "Name", "Email"
+            }
+        ));
+        jScrollPane3.setViewportView(jTable3);
+        if (jTable3.getColumnModel().getColumnCount() > 0) {
+            jTable3.getColumnModel().getColumn(2).setHeaderValue("Email");
+        }
+
+        jPanel9.setBackground(new java.awt.Color(255, 255, 255));
+
+        jTextField2.setBorder(javax.swing.BorderFactory.createTitledBorder("ID"));
+
+        jTextField3.setBorder(javax.swing.BorderFactory.createTitledBorder("Name"));
+        jTextField3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField3ActionPerformed(evt);
+            }
+        });
+
+        jTextField4.setBorder(javax.swing.BorderFactory.createTitledBorder("Email"));
+
+        jButton13.setText("Add Teacher ");
+        jButton13.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton13ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
+        jPanel9.setLayout(jPanel9Layout);
+        jPanel9Layout.setHorizontalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel9Layout.createSequentialGroup()
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel9Layout.createSequentialGroup()
+                        .addGap(22, 22, 22)
+                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel9Layout.createSequentialGroup()
+                        .addGap(60, 60, 60)
+                        .addComponent(jButton13)))
+                .addContainerGap(34, Short.MAX_VALUE))
+        );
+        jPanel9Layout.setVerticalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel9Layout.createSequentialGroup()
+                .addGap(28, 28, 28)
+                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26)
+                .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30)
+                .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
+                .addComponent(jButton13)
+                .addGap(40, 40, 40))
+        );
+
+        jButton14.setText("Delete");
+        jButton14.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton14ActionPerformed(evt);
+            }
+        });
+
+        jButton15.setText("Edit");
+        jButton15.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton15ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
+        jPanel7.setLayout(jPanel7Layout);
+        jPanel7Layout.setHorizontalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addGap(30, 30, 30)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel4)
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel7Layout.createSequentialGroup()
+                                .addComponent(jButton15)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jButton14))
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(45, 45, 45)
+                        .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel7Layout.setVerticalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addGap(21, 21, 21)
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton14)
+                    .addComponent(jButton15))
+                .addContainerGap(150, Short.MAX_VALUE))
+        );
+
+        jPanel4.add(jPanel7, "card4");
+
+        jPanel8.setBackground(new java.awt.Color(255, 255, 255));
+
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel5.setText("Add Subjects");
+
+        jTable4.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
+            },
+            new String [] {
+                "Subject Code", "Subject Name"
+            }
+        ));
+        jScrollPane4.setViewportView(jTable4);
+
+        jPanel10.setBackground(new java.awt.Color(255, 255, 255));
+
+        jTextField5.setBorder(javax.swing.BorderFactory.createTitledBorder("Subject Code"));
+
+        jTextField6.setBorder(javax.swing.BorderFactory.createTitledBorder("Subject Name"));
+
+        jButton17.setText("Add Subject");
+        jButton17.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton17ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
+        jPanel10.setLayout(jPanel10Layout);
+        jPanel10Layout.setHorizontalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel10Layout.createSequentialGroup()
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel10Layout.createSequentialGroup()
+                        .addGap(32, 32, 32)
+                        .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel10Layout.createSequentialGroup()
+                        .addGap(74, 74, 74)
+                        .addComponent(jButton17)))
+                .addContainerGap(49, Short.MAX_VALUE))
+        );
+        jPanel10Layout.setVerticalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel10Layout.createSequentialGroup()
+                .addGap(37, 37, 37)
+                .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButton17)
+                .addContainerGap(144, Short.MAX_VALUE))
+        );
+
+        jButton18.setText("Delete");
+        jButton18.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton18ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
+        jPanel8.setLayout(jPanel8Layout);
+        jPanel8Layout.setHorizontalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addGap(45, 45, 45)
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel5)
+                    .addGroup(jPanel8Layout.createSequentialGroup()
+                        .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jButton18)
+                            .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 521, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(34, 34, 34)
+                        .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel8Layout.setVerticalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addGap(37, 37, 37)
+                .addComponent(jLabel5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton18)
+                .addContainerGap(132, Short.MAX_VALUE))
+        );
+
+        jPanel4.add(jPanel8, "card5");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(126, 126, 126))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 1014, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 534, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        Logout.logout(this);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        CardLayout cl = (CardLayout) jPanel4.getLayout();
+        cl.show(jPanel4, "card3");
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        CardLayout cl = (CardLayout) jPanel4.getLayout();
+        cl.show(jPanel4, "card2");
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        // TODO add your handling code here:
+        // Show input dialog
+        String message = JOptionPane.showInputDialog(
+            this,
+            "Enter announcement message:",
+            "Send Announcement",
+            JOptionPane.PLAIN_MESSAGE
+        );
+
+        // If user clicks Cancel
+        if (message == null) {
+            return;
+        }
+
+        // Validate empty input
+        if (message.equals("")) {
+            JOptionPane.showMessageDialog(
+                this,
+                "Announcement message cannot be empty.",
+                "Validation Error",
+                JOptionPane.WARNING_MESSAGE
+            );
+            return;
+        }
+
+        // Create Announcement object
+        Announcement announcement = new Announcement(message);
+
+        // Add to queue
+        announcementQueue.addAnnouncement(announcement);
+
+        // Confirmation
+        JOptionPane.showMessageDialog(
+            this,
+            "Announcement sent successfully.",
+            "Success",
+            JOptionPane.INFORMATION_MESSAGE
+        );
+        AnnouncementController.updateAnnouncementTable(jTable1);
+    }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+        int selectedRow = jTable1.getSelectedRow();
+
+        // No row selected
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(
+                this,
+                "Please select a record to delete.",
+                "No Selection",
+                JOptionPane.WARNING_MESSAGE
+            );
+            return;
+        }
+
+        // Confirmation dialog
+        int confirm = JOptionPane.showConfirmDialog(
+            this,
+            "Are you sure you want to delete the selected record?",
+            "Confirm Delete",
+            JOptionPane.YES_NO_OPTION
+        );
+
+        if (confirm != JOptionPane.YES_OPTION) {
+            return;
+        }
+
+        // Remove from the underlying list
+        AppContext
+            .getAnnouncementQueue()
+            .getAllAnnouncements()
+            .remove(selectedRow);
+
+        // Refresh table
+        AnnouncementController.updateAnnouncementTable(jTable1);
+
+        JOptionPane.showMessageDialog(
+            this,
+            "Record deleted successfully.",
+            "Deleted",
+            JOptionPane.INFORMATION_MESSAGE
+        );
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField1ActionPerformed
+
+    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+        // TODO add your handling code here:
+        int selectedRow = jTable2.getSelectedRow();
+
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(
+                this,
+                "Please select a timetable entry to delete.",
+                "No Selection",
+                JOptionPane.WARNING_MESSAGE
+            );
+            return;
+        }
+
+        int confirm = JOptionPane.showConfirmDialog(
+            this,
+            "Are you sure you want to delete this timetable entry?",
+            "Confirm Delete",
+            JOptionPane.YES_NO_OPTION,
+            JOptionPane.WARNING_MESSAGE
+        );
+
+        if (confirm != JOptionPane.YES_OPTION) {
+            return;
+        }
+
+        // Remove from model
+        AppContext.getTimetable().getEntries().remove(selectedRow);
+
+        // Refresh table
+        TimetableTableController.updateTimetableTable(jTable2);
+
+        JOptionPane.showMessageDialog(
+            this,
+            "Timetable entry deleted successfully.",
+            "Success",
+            JOptionPane.INFORMATION_MESSAGE
+        );
+    }//GEN-LAST:event_jButton9ActionPerformed
+
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+        // TODO add your handling code here:
+        int selectedRow = jTable2.getSelectedRow();
+
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(
+                this,
+                "Please select a timetable entry to edit.",
+                "No Selection",
+                JOptionPane.WARNING_MESSAGE
+            );
+            return;
+        }
+
+        TimetableEntry entry =
+            AppContext.getTimetable().getEntries().get(selectedRow);
+
+        JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+
+        // Day
+        String[] days = { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday" };
+        JComboBox<String> dayCombo = new JComboBox<>(days);
+        dayCombo.setSelectedItem(entry.getDay());
+
+        // Time dropdowns
+        String[] hours = { "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18" };
+        String[] minutes = { "00", "15", "30", "45" };
+
+        JComboBox<String> startHour = new JComboBox<>(hours);
+        JComboBox<String> startMinute = new JComboBox<>(minutes);
+        JComboBox<String> endHour = new JComboBox<>(hours);
+        JComboBox<String> endMinute = new JComboBox<>(minutes);
+
+        startHour.setSelectedItem(String.format("%02d", entry.getStartTime().getHour()));
+        startMinute.setSelectedItem(String.format("%02d", entry.getStartTime().getMinute()));
+        endHour.setSelectedItem(String.format("%02d", entry.getEndTime().getHour()));
+        endMinute.setSelectedItem(String.format("%02d", entry.getEndTime().getMinute()));
+
+        JTextField classField = new JTextField(entry.getClassName(), 15);
+        JTextField roomField = new JTextField(entry.getRoom(), 15);
+
+        JComboBox<Teacher> teacherCombo =
+            new JComboBox<>(AppContext.getTeachers().toArray(new Teacher[0]));
+        teacherCombo.setSelectedItem(entry.getTeacher());
+
+        JComboBox<Subject> subjectCombo =
+            new JComboBox<>(AppContext.getSubjects().toArray(new Subject[0]));
+        subjectCombo.setSelectedItem(entry.getSubject());
+
+        // Build UI
+        panel.add(new JLabel("Day:"));
+        panel.add(dayCombo);
+
+        panel.add(new JLabel("Start Time:"));
+        panel.add(startHour);
+        panel.add(startMinute);
+
+        panel.add(new JLabel("End Time:"));
+        panel.add(endHour);
+        panel.add(endMinute);
+
+        panel.add(new JLabel("Class:"));
+        panel.add(classField);
+
+        panel.add(new JLabel("Room:"));
+        panel.add(roomField);
+
+        panel.add(new JLabel("Teacher:"));
+        panel.add(teacherCombo);
+
+        panel.add(new JLabel("Subject:"));
+        panel.add(subjectCombo);
+
+        int option = JOptionPane.showConfirmDialog(
+            this,
+            panel,
+            "Edit Timetable Entry",
+            JOptionPane.OK_CANCEL_OPTION,
+            JOptionPane.PLAIN_MESSAGE
+        );
+
+        if (option != JOptionPane.OK_OPTION) {
+            return;
+        }
+
+        // Validation
+        if (classField.getText().equals("") || roomField.getText().equals("")) {
+            JOptionPane.showMessageDialog(
+                this,
+                "All fields must be filled.",
+                "Validation Error",
+                JOptionPane.ERROR_MESSAGE
+            );
+            return;
+        }
+
+        LocalTime startTime = LocalTime.of(
+            Integer.parseInt((String) startHour.getSelectedItem()),
+            Integer.parseInt((String) startMinute.getSelectedItem())
+        );
+
+        LocalTime endTime = LocalTime.of(
+            Integer.parseInt((String) endHour.getSelectedItem()),
+            Integer.parseInt((String) endMinute.getSelectedItem())
+        );
+
+        if (!endTime.isAfter(startTime)) {
+            JOptionPane.showMessageDialog(
+                this,
+                "End time must be after start time.",
+                "Invalid Time",
+                JOptionPane.ERROR_MESSAGE
+            );
+            return;
+        }
+
+        // Apply changes
+        entry.setDay((String) dayCombo.getSelectedItem());
+        entry.setStartTime(startTime);
+        entry.setEndTime(endTime);
+        entry.setClassName(classField.getText());
+        entry.setRoom(roomField.getText());
+        entry.setTeacher((Teacher) teacherCombo.getSelectedItem());
+        entry.setSubject((Subject) subjectCombo.getSelectedItem());
+
+        TimetableTableController.updateTimetableTable(jTable2);
+
+        JOptionPane.showMessageDialog(
+            this,
+            "Timetable entry updated successfully.",
+            "Success",
+            JOptionPane.INFORMATION_MESSAGE
+        );
+    }//GEN-LAST:event_jButton8ActionPerformed
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+
+        // Day dropdown
+        String[] days = { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday" };
+        JComboBox<String> dayCombo = new JComboBox<>(days);
+
+        // Hour & minute dropdowns
+        String[] hours = { "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18" };
+        String[] minutes = { "00", "15", "30", "45" };
+
+        JComboBox<String> startHourCombo = new JComboBox<>(hours);
+        JComboBox<String> startMinuteCombo = new JComboBox<>(minutes);
+
+        JComboBox<String> endHourCombo = new JComboBox<>(hours);
+        JComboBox<String> endMinuteCombo = new JComboBox<>(minutes);
+
+        JTextField classNameField = new JTextField(15);
+        JTextField roomField = new JTextField(15);
+
+        JComboBox<Teacher> teacherCombo =
+            new JComboBox<>(AppContext.getTeachers().toArray(new Teacher[0]));
+
+        JComboBox<Subject> subjectCombo =
+            new JComboBox<>(AppContext.getSubjects().toArray(new Subject[0]));
+
+        panel.add(new JLabel("Select Day:"));
+        panel.add(dayCombo);
+
+        panel.add(new JLabel("Start Time:"));
+        panel.add(startHourCombo);
+        panel.add(startMinuteCombo);
+
+        panel.add(new JLabel("End Time:"));
+        panel.add(endHourCombo);
+        panel.add(endMinuteCombo);
+
+        panel.add(new JLabel("Class Name:"));
+        panel.add(classNameField);
+
+        panel.add(new JLabel("Room:"));
+        panel.add(roomField);
+
+        panel.add(new JLabel("Teacher:"));
+        panel.add(teacherCombo);
+
+        panel.add(new JLabel("Subject:"));
+        panel.add(subjectCombo);
+
+        int option = JOptionPane.showConfirmDialog(
+            this,
+            panel,
+            "Add Timetable Entry",
+            JOptionPane.OK_CANCEL_OPTION,
+            JOptionPane.PLAIN_MESSAGE
+        );
+
+        if (option != JOptionPane.OK_OPTION) {
+            return;
+        }
+
+        String day = (String) dayCombo.getSelectedItem();
+        String className = classNameField.getText();
+        String room = roomField.getText();
+
+        Teacher teacher = (Teacher) teacherCombo.getSelectedItem();
+        Subject subject = (Subject) subjectCombo.getSelectedItem();
+
+        if (className.equals("") || room.equals("") || teacher == null || subject == null) {
+            JOptionPane.showMessageDialog(
+                this,
+                "All fields must be filled.",
+                "Validation Error",
+                JOptionPane.ERROR_MESSAGE
+            );
+            return;
+        }
+
+        int sh = Integer.parseInt((String) startHourCombo.getSelectedItem());
+        int sm = Integer.parseInt((String) startMinuteCombo.getSelectedItem());
+        int eh = Integer.parseInt((String) endHourCombo.getSelectedItem());
+        int em = Integer.parseInt((String) endMinuteCombo.getSelectedItem());
+
+        LocalTime startTime = LocalTime.of(sh, sm);
+        LocalTime endTime = LocalTime.of(eh, em);
+
+        // --- TIME VALIDATION ---
+        LocalTime earliest = LocalTime.of(8, 0);
+        LocalTime latest = LocalTime.of(18, 0);
+
+        if (startTime.isBefore(earliest) || endTime.isAfter(latest)) {
+            JOptionPane.showMessageDialog(
+                this,
+                "Time must be between 08:00 and 18:00.",
+                "Invalid Time",
+                JOptionPane.ERROR_MESSAGE
+            );
+            return;
+        }
+
+        if (startTime.equals(endTime)) {
+            JOptionPane.showMessageDialog(
+                this,
+                "Start time and end time cannot be the same.",
+                "Invalid Time",
+                JOptionPane.ERROR_MESSAGE
+            );
+            return;
+        }
+
+        if (!endTime.isAfter(startTime)) {
+            JOptionPane.showMessageDialog(
+                this,
+                "End time must be after start time.",
+                "Invalid Time",
+                JOptionPane.ERROR_MESSAGE
+            );
+            return;
+        }
+
+        TimetableEntry entry = new TimetableEntry(
+            day,
+            startTime,
+            endTime,
+            className,
+            subject,
+            teacher,
+            room
+        );
+
+        AppContext.getTimetable().addEntry(entry);
+
+        TimetableTableController.updateTimetableTable(jTable2);
+
+        JOptionPane.showMessageDialog(
+            this,
+            "Timetable entry added successfully.",
+            "Success",
+            JOptionPane.INFORMATION_MESSAGE
+        );
+    }//GEN-LAST:event_jButton7ActionPerformed
+
+    private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
+        // TODO add your handling code here:
+        CardLayout cl = (CardLayout) jPanel4.getLayout();
+        cl.show(jPanel4, "card4");
+    }//GEN-LAST:event_jButton11ActionPerformed
+
+    private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
+        // TODO add your handling code here:
+        CardLayout cl = (CardLayout) jPanel4.getLayout();
+        cl.show(jPanel4, "card5");
+    }//GEN-LAST:event_jButton12ActionPerformed
+
+    private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
+        // TODO add your handling code here:
+        // Get the input from text fields
+        String teacherId = jTextField2.getText();
+        String name = jTextField3.getText();
+        String email = jTextField4.getText();
+
+        // Validate input
+        if (teacherId.equals("") || name.equals("") || email.equals("")) {
+            JOptionPane.showMessageDialog(this,
+                "Please fill in all fields.",
+                "Validation Error",
+                JOptionPane.WARNING_MESSAGE
+            );
+            return;
+        }
+
+        // Create a new Teacher object
+        Teacher newTeacher = new Teacher(teacherId, name, email);
+
+        // Add the new teacher to the AppContext
+        AppContext.addTeacher(newTeacher);
+
+        // Confirmation
+        JOptionPane.showMessageDialog(this,
+            "Teacher added successfully.",
+            "Success",
+            JOptionPane.INFORMATION_MESSAGE
+        );
+
+        // Update Teacher table
+        TeacherTableController.updateTeacherTable(jTable3);
+    }//GEN-LAST:event_jButton13ActionPerformed
+
+    private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton14ActionPerformed
+        // TODO add your handling code here:
+        // Get the selected row index from the table
+        int selectedRow = jTable3.getSelectedRow();
+
+        // If no row is selected, show a message and return
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(this, 
+                "Please select a teacher to delete.", 
+                "No Selection", 
+                JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        // Get the teacher's ID from the selected row
+        String teacherId = (String) jTable3.getValueAt(selectedRow, 0);
+
+        // Confirm with the user before deleting
+        int confirm = JOptionPane.showConfirmDialog(this,
+            "Are you sure you want to delete this teacher?",
+            "Confirm Deletion",
+            JOptionPane.YES_NO_OPTION,
+            JOptionPane.WARNING_MESSAGE);
+
+        // If user confirms, delete the teacher
+        if (confirm == JOptionPane.YES_OPTION) {
+            ArrayList<Teacher> teachers = AppContext.getTeachers();
+
+            // Find and remove the teacher from the list
+            teachers.removeIf(teacher -> teacher.getTeacherId().equals(teacherId));
+
+            // Show a confirmation message
+            JOptionPane.showMessageDialog(this, 
+                "Teacher deleted successfully.", 
+                "Success", 
+                JOptionPane.INFORMATION_MESSAGE);
+
+            // Update the table to reflect the changes
+            TeacherTableController.updateTeacherTable(jTable3);
+        }
+    }//GEN-LAST:event_jButton14ActionPerformed
+
+    private void jButton15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton15ActionPerformed
+        // TODO add your handling code here:
+        // Get the selected row index from the table
+        int selectedRow = jTable3.getSelectedRow();
+
+        // If no row is selected, show a message and return
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(this, 
+                "Please select a teacher to edit.", 
+                "No Selection", 
+                JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        // Get the teacher's ID, name, and email from the selected row
+        String teacherId = (String) jTable3.getValueAt(selectedRow, 0);
+        String name = (String) jTable3.getValueAt(selectedRow, 1);
+        String email = (String) jTable3.getValueAt(selectedRow, 2);
+
+        // Show an input dialog for the new teacher details (this can be enhanced with a custom dialog form)
+        String newName = JOptionPane.showInputDialog(this, "Enter new name:", name);
+        String newEmail = JOptionPane.showInputDialog(this, "Enter new email:", email);
+
+        // If user cancels or leaves the fields empty, return
+        if (newName == null || newEmail == null || newName.equals("") || newEmail.equals("")) {
+            JOptionPane.showMessageDialog(this,
+                "Name and Email are required.",
+                "Validation Error",
+                JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        // Find the teacher object in the AppContext list and update its details
+        ArrayList<Teacher> teachers = AppContext.getTeachers();
+        for (Teacher teacher : teachers) {
+            if (teacher.getTeacherId().equals(teacherId)) {
+                teacher.setName(newName);
+                teacher.setEmail(newEmail);
+                break;
+            }
+        }
+
+        // Show a confirmation message
+        JOptionPane.showMessageDialog(this, 
+            "Teacher details updated successfully.", 
+            "Success", 
+            JOptionPane.INFORMATION_MESSAGE);
+
+        // Update the table to reflect the changes
+        TeacherTableController.updateTeacherTable(jTable3);
+    }//GEN-LAST:event_jButton15ActionPerformed
+
+    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField3ActionPerformed
+
+    private void jButton17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton17ActionPerformed
+        // TODO add your handling code here:
+        // Get the input from text fields
+        String subjectCode = jTextField5.getText();
+        String subjectName = jTextField6.getText();
+
+        // Validate input
+        if (subjectCode.equals("") || subjectName.equals("")) {
+            JOptionPane.showMessageDialog(this,
+                "Please fill in all fields.",
+                "Validation Error",
+                JOptionPane.WARNING_MESSAGE
+            );
+            return;
+        }
+
+        // Create a new Subject object
+        Subject newSubject = new Subject(subjectCode, subjectName);
+
+        // Add the new subject to AppContext
+        AppContext.addSubject(newSubject);
+
+        // Confirmation
+        JOptionPane.showMessageDialog(this,
+            "Subject added successfully.",
+            "Success",
+            JOptionPane.INFORMATION_MESSAGE
+        );
+
+        // Update Subject table
+        SubjectTableController.updateSubjectTable(jTable4);
+    }//GEN-LAST:event_jButton17ActionPerformed
+
+    private void jButton18ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton18ActionPerformed
+        // TODO add your handling code here:
+        // Get the selected row index from the table
+        int selectedRow = jTable4.getSelectedRow();
+
+        // If no row is selected, show a message and return
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(this,
+                "Please select a subject to delete.",
+                "No Selection",
+                JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        // Get the subject code from the selected row
+        String subjectCode = (String) jTable4.getValueAt(selectedRow, 0);
+
+        // Confirm with the user before deleting
+        int confirm = JOptionPane.showConfirmDialog(this,
+            "Are you sure you want to delete this subject?",
+            "Confirm Deletion",
+            JOptionPane.YES_NO_OPTION,
+            JOptionPane.WARNING_MESSAGE);
+
+        // If user confirms, delete the subject
+        if (confirm == JOptionPane.YES_OPTION) {
+            ArrayList<Subject> subjects = AppContext.getSubjects();
+
+            // Find and remove the subject from the list
+            subjects.removeIf(subject -> subject.getSubjectCode().equals(subjectCode));
+
+            // Show a confirmation message
+            JOptionPane.showMessageDialog(this,
+                "Subject deleted successfully.",
+                "Success",
+                JOptionPane.INFORMATION_MESSAGE);
+
+            // Update the table to reflect the changes
+            SubjectTableController.updateSubjectTable(jTable4);
+        }
+    }//GEN-LAST:event_jButton18ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -72,9 +1297,54 @@ public class TeacherDashboard extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        //java.awt.EventQueue.invokeLater(() -> new TeacherDashboard().setVisible(true));
+        // java.awt.EventQueue.invokeLater(() -> new AdminDashboard().setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton11;
+    private javax.swing.JButton jButton12;
+    private javax.swing.JButton jButton13;
+    private javax.swing.JButton jButton14;
+    private javax.swing.JButton jButton15;
+    private javax.swing.JButton jButton17;
+    private javax.swing.JButton jButton18;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButton7;
+    private javax.swing.JButton jButton8;
+    private javax.swing.JButton jButton9;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel10;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
+    private javax.swing.JPanel jPanel9;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTable2;
+    private javax.swing.JTable jTable3;
+    private javax.swing.JTable jTable4;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField jTextField3;
+    private javax.swing.JTextField jTextField4;
+    private javax.swing.JTextField jTextField5;
+    private javax.swing.JTextField jTextField6;
     // End of variables declaration//GEN-END:variables
 }
