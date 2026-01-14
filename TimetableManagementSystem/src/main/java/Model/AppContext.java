@@ -23,7 +23,7 @@ public class AppContext {
     private static ArrayList<Subject> subjects = new ArrayList<>();
 
    
-    public static AnnouncementArrayList getAnnouncementQueue() {
+    public static AnnouncementArrayList getAnnouncements() {
         return announcements;
     }
     

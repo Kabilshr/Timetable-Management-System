@@ -35,7 +35,7 @@ public class AdminDashboard extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(AdminDashboard.class.getName());
     private Admin admin;
-    AnnouncementArrayList announcementQueue = AppContext.getAnnouncementQueue();
+    AnnouncementArrayList announcements = AppContext.getAnnouncements();
     /**
      * Creates new form AdminDashboard
      * @param admin
@@ -676,7 +676,7 @@ public class AdminDashboard extends javax.swing.JFrame {
         Announcement announcement = new Announcement(message);
 
         // Add to queue
-        announcementQueue.addAnnouncement(announcement);
+        announcements.addAnnouncement(announcement);
 
         // Confirmation
         JOptionPane.showMessageDialog(
@@ -717,7 +717,7 @@ public class AdminDashboard extends javax.swing.JFrame {
 
         // Remove from the underlying list
         AppContext
-            .getAnnouncementQueue()
+            .getAnnouncements()
             .getAllAnnouncements()
             .remove(selectedRow);
 
