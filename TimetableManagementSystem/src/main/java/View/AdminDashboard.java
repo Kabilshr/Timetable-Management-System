@@ -229,6 +229,11 @@ public class AdminDashboard extends javax.swing.JFrame {
         });
 
         jButton5.setText("🔎");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
         jButton7.setText("Add");
         jButton7.addActionListener(new java.awt.event.ActionListener() {
@@ -644,6 +649,7 @@ public class AdminDashboard extends javax.swing.JFrame {
         // TODO add your handling code here:
         CardLayout cl = (CardLayout) jPanel4.getLayout();
         cl.show(jPanel4, "card2");
+        TimetableTableController.updateTimetableTable(jTable2);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
@@ -1274,6 +1280,27 @@ public class AdminDashboard extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton18ActionPerformed
 
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // TODO add your handling code here:
+        String query = jTextField1.getText().trim();
+        searchTimetable(query);
+        
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    public void searchTimetable(String query) {
+        // Ensure the query is not empty before searching
+        if (query.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please enter a search query.", "No Query", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        // Call the search method in TimetableTableController to get filtered timetable entries
+        ArrayList<TimetableEntry> filteredEntries = TimetableTableController.searchTimetable(query);
+
+        // Update the timetable table with filtered results
+        TimetableTableController.updateFilteredTimetableTable(jTable2, filteredEntries);
+    }
+    
     /**
      * @param args the command line arguments
      */
