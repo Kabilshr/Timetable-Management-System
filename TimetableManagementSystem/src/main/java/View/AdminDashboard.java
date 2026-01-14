@@ -1295,7 +1295,7 @@ public class AdminDashboard extends javax.swing.JFrame {
         }
 
         // Call the search method in TimetableTableController to get filtered timetable entries
-        ArrayList<TimetableEntry> filteredEntries = TimetableTableController.searchTimetable(query);
+        ArrayList<TimetableEntry> filteredEntries = TimetableTableController.searchTimetable(query, AppContext.getTimetable());
 
         // Update the timetable table with filtered results
         TimetableTableController.updateFilteredTimetableTable(jTable2, filteredEntries);

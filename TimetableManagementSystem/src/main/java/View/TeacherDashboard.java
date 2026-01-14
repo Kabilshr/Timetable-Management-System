@@ -6,13 +6,24 @@ package View;
 
 import Controller.AnnouncementController;
 import Controller.Logout;
+import Controller.TimetableTableController;
 import Model.Announcement;
 import Model.AnnouncementArrayList;
 import Model.AppContext;
+import Model.Subject;
 import Model.Teacher;
+import Model.TimetableEntry;
 import Model.User;
 import java.awt.CardLayout;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.util.ArrayList;
+import javax.swing.BoxLayout;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -23,6 +34,8 @@ public class TeacherDashboard extends javax.swing.JFrame {
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(TeacherDashboard.class.getName());
     private Teacher teacher;
     AnnouncementArrayList announcements = AppContext.getAnnouncements();
+    private ArrayList<TimetableEntry> filteredTimetable = new ArrayList<>();
+    ArrayList<TimetableEntry> filteredEntries = new ArrayList<>();
     
     /**
      * Creates new form TeacherDashboard
@@ -31,6 +44,10 @@ public class TeacherDashboard extends javax.swing.JFrame {
     public TeacherDashboard(User teacher) {
         this.teacher = (Teacher) teacher;
         initComponents();
+        filterTeacherTimetable(this.teacher);
+        TimetableTableController.updateFilteredTimetableTable(jTable2, filteredTimetable);
+        displayUpcomingClass();
+        AnnouncementController.updateAnnouncementTable(jTable3);
     }
 
     /**
@@ -61,6 +78,8 @@ public class TeacherDashboard extends javax.swing.JFrame {
         jTable3 = new javax.swing.JTable();
         jButton6 = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
+        jButton4 = new javax.swing.JButton();
+        jButton8 = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jScrollPane4 = new javax.swing.JScrollPane();
@@ -154,6 +173,11 @@ public class TeacherDashboard extends javax.swing.JFrame {
         });
 
         jButton5.setText("🔎");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -220,6 +244,20 @@ public class TeacherDashboard extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel3.setText("Send Announcements");
 
+        jButton4.setText("Sort by day/time");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+
+        jButton8.setText("Filter");
+        jButton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton8ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
@@ -227,26 +265,30 @@ public class TeacherDashboard extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(40, 40, 40)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 589, Short.MAX_VALUE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel4Layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 589, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel4Layout.createSequentialGroup()
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 517, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton6))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel4Layout.createSequentialGroup()
+                            .addGap(6, 6, 6)
+                            .addComponent(jLabel3)))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 517, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jButton6))
-                            .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addGap(6, 6, 6)
-                                .addComponent(jLabel3)))))
+                                .addComponent(jButton4)
+                                .addGap(18, 18, 18)
+                                .addComponent(jButton8))
+                            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 589, Short.MAX_VALUE)
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel4Layout.createSequentialGroup()
+                                    .addComponent(jLabel2)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(19, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
@@ -261,13 +303,20 @@ public class TeacherDashboard extends javax.swing.JFrame {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 324, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jLabel3)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel3))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGap(4, 4, 4)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jButton8)
+                            .addComponent(jButton4))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton6)
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addContainerGap(10, Short.MAX_VALUE))
         );
 
         jPanel1.add(jPanel4, "card2");
@@ -350,7 +399,7 @@ public class TeacherDashboard extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(74, 74, 74)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 592, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
@@ -379,6 +428,7 @@ public class TeacherDashboard extends javax.swing.JFrame {
         // TODO add your handling code here:
         CardLayout cl = (CardLayout) jPanel1.getLayout();
         cl.show(jPanel1, "card3");
+        AnnouncementController.updateAnnouncementTable(jTable4);
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
@@ -424,7 +474,7 @@ public class TeacherDashboard extends javax.swing.JFrame {
             "Success",
             JOptionPane.INFORMATION_MESSAGE
         );
-        AnnouncementController.updateAnnouncementTable(jTable1);
+        AnnouncementController.updateAnnouncementTable(jTable3);
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
@@ -469,6 +519,227 @@ public class TeacherDashboard extends javax.swing.JFrame {
         AnnouncementController.updateAnnouncementTable(jTable1);
     }//GEN-LAST:event_jButton7ActionPerformed
 
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+        sortTimetableByInsertionSort();
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+        // Create dialog for filtering
+        JPanel filterPanel = new JPanel();
+        filterPanel.setLayout(new BoxLayout(filterPanel, BoxLayout.Y_AXIS));
+
+        // Subject filter
+        String[] subjects = AppContext.getSubjects().stream()
+        .map(Subject::getSubjectName)
+        .toArray(String[]::new);
+        JComboBox<String> subjectComboBox = new JComboBox<>(subjects);
+        subjectComboBox.insertItemAt("All Subjects", 0); // Add "All Subjects" option
+        subjectComboBox.setSelectedIndex(0);
+
+        // Day filter
+        String[] days = {"All Days", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday"};
+        JComboBox<String> dayComboBox = new JComboBox<>(days);
+        dayComboBox.setSelectedIndex(0);  // Default to "All Days"
+
+        // Add filters to panel
+        filterPanel.add(new JLabel("Select Subject:"));
+        filterPanel.add(subjectComboBox);
+        filterPanel.add(new JLabel("Select Day:"));
+        filterPanel.add(dayComboBox);
+
+        // Show dialog and handle input
+        int option = JOptionPane.showConfirmDialog(this, filterPanel, "Filter Timetable", JOptionPane.OK_CANCEL_OPTION);
+
+        if (option == JOptionPane.OK_OPTION) {
+            // Fetch selected values
+            String selectedSubject = (String) subjectComboBox.getSelectedItem();
+            String selectedDay = (String) dayComboBox.getSelectedItem();
+
+            // Filter timetable based on selected subject and day
+            filterTimetable(selectedSubject, selectedDay);
+        }
+    }//GEN-LAST:event_jButton8ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // TODO add your handling code here:
+        String query = jTextField1.getText().trim();
+        searchTimetable(query);
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    public void searchTimetable(String query) {
+        // Ensure the query is not empty before searching
+        if (query.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please enter a search query.", "No Query", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        // Call the search method in TimetableTableController to get filtered timetable entries
+        ArrayList<TimetableEntry> filteredEntries = TimetableTableController.searchTimetable(query, AppContext.getTimetable());
+
+        // Update the timetable table with filtered results
+        TimetableTableController.updateFilteredTimetableTable(jTable2, filteredEntries);
+    }
+    
+    /**
+     * Filters the timetable based on subject and day, and updates the table.
+     * @param selectedSubject The selected subject for filtering
+     * @param selectedDay The selected day for filtering
+     */
+    private void filterTimetable(String selectedSubject, String selectedDay) {
+        ArrayList<TimetableEntry> timetableData = new ArrayList<>(AppContext.getTimetable().getEntries());
+        
+        filteredEntries.clear();
+        // Filter based on subject and day
+        for (TimetableEntry entry : timetableData) {
+            boolean matchesSubject = selectedSubject.equals("All Subjects") || entry.getSubject().getSubjectName().equals(selectedSubject);
+            boolean matchesDay = selectedDay.equals("All Days") || entry.getDay().equals(selectedDay);
+            
+            
+            // If entry matches both filters, add it to the filtered list
+            if (matchesSubject && matchesDay) {
+                filteredEntries.add(entry);
+            }
+        }
+
+        // Update the table with the filtered data
+        TimetableTableController.updateFilteredTimetableTable(jTable2, filteredEntries);
+    }
+    
+    public void sortTimetableByInsertionSort() {
+        // Copy timetable entries to avoid modifying the original data
+        ArrayList<TimetableEntry> entries = new ArrayList<>(filteredEntries);
+
+        // Sort using Selection Sort
+        TimetableTableController.sortTimetableByStartTimeInsertionSort(entries);
+
+        // Update the table with the sorted entries
+        TimetableTableController.updateFilteredTimetableTable(jTable2, entries);
+    }
+    
+    public void filterTeacherTimetable(Teacher loggedInTeacher) {
+        // Get the list of timetable entries
+        ArrayList<TimetableEntry> timetableEntries = new ArrayList<>(AppContext.getTimetable().getEntries());
+
+        // Filter the timetable by the logged-in teacher
+        for (TimetableEntry entry : timetableEntries) {
+            if (entry.getTeacher().getUserId().equals(loggedInTeacher.getUserId())) {
+                filteredTimetable.add(entry);
+            }
+        }
+
+        // Reuse the sorting logic from TimetableTableController
+        TimetableTableController.sortTimetableByStartTimeInsertionSort(filteredTimetable);
+
+        // Update the table with the filtered and sorted timetable
+        TimetableTableController.updateFilteredTimetableTable(jTable2, filteredTimetable);
+    }
+
+    public void searchFilteredTimetable(String query) {
+        // Use the search function from TimetableTableController to search in the filtered timetable
+        ArrayList<TimetableEntry> searchResults = TimetableTableController.searchTimetable(query, filteredTimetable);
+
+        // Update the table with search results
+        TimetableTableController.updateFilteredTimetableTable(jTable2, searchResults);
+    }
+
+    public void sortFilteredTimetable() {
+        // Reuse sorting method from TimetableTableController for filtered data
+        TimetableTableController.sortTimetableByStartTimeInsertionSort(filteredTimetable);
+
+        // Update the table with the sorted timetable
+        TimetableTableController.updateFilteredTimetableTable(jTable2, filteredTimetable);
+    }
+    
+    public void displayUpcomingClass() {
+        String currentDay = java.time.LocalDate.now().getDayOfWeek().toString();
+        currentDay = currentDay.substring(0,1) + currentDay.substring(1).toLowerCase();
+        LocalTime currentTime = LocalDateTime.now().toLocalTime();
+
+        ArrayList<TimetableEntry> timetableEntries = new ArrayList<>(filteredTimetable);
+
+        // Sort the timetable entries by start time using selection sort
+        selectionSortByStartTime(timetableEntries);
+
+        int index = binarySearchForNextClass(timetableEntries, currentDay, currentTime);
+
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        model.setRowCount(0);
+
+        if (index != -1) {
+            TimetableEntry nextClass = timetableEntries.get(index);
+
+            // Add each class detail in a separate row
+            model.addRow(new Object[]{"Day: " + nextClass.getDay()});
+            model.addRow(new Object[]{"Start Time: " + nextClass.getStartTime().toString()});
+            model.addRow(new Object[]{"End Time: " + nextClass.getEndTime().toString()});
+            model.addRow(new Object[]{"Class: " + nextClass.getClassName()});
+            model.addRow(new Object[]{"Subject: " + nextClass.getSubject().getSubjectName()});
+            model.addRow(new Object[]{"Teacher: " + nextClass.getTeacher().getName()});
+            model.addRow(new Object[]{"Room: " + nextClass.getRoom()});
+        } else {
+            model.addRow(new Object[]{"No upcoming classes."});
+        }
+    }
+    
+    private void selectionSortByStartTime(ArrayList<TimetableEntry> timetableEntries) {
+        for (int i = 0; i < timetableEntries.size() - 1; i++) {
+            int minIndex = i;
+            for (int j = i + 1; j < timetableEntries.size(); j++) {
+                TimetableEntry entry1 = timetableEntries.get(minIndex);
+                TimetableEntry entry2 = timetableEntries.get(j);
+                if (entry2.getStartTime().isBefore(entry1.getStartTime())) {
+                    minIndex = j;
+                }
+            }
+            // Swap the elements
+            TimetableEntry temp = timetableEntries.get(minIndex);
+            timetableEntries.set(minIndex, timetableEntries.get(i));
+            timetableEntries.set(i, temp);
+        }
+    }
+
+    private int dayToIndex(String day) {
+        if (day.equalsIgnoreCase("Monday")) return 1;
+        if (day.equalsIgnoreCase("Tuesday")) return 2;
+        if (day.equalsIgnoreCase("Wednesday")) return 3;
+        if (day.equalsIgnoreCase("Thursday")) return 4;
+        if (day.equalsIgnoreCase("Friday")) return 5;
+        if (day.equalsIgnoreCase("Saturday")) return 6;
+        return 7;
+    }
+    
+    // Binary search method to find the next class based on current date and time
+    private int binarySearchForNextClass(ArrayList<TimetableEntry> timetableEntries, String currentDay, LocalTime currentTime) {
+        int low = 0;
+        int high = timetableEntries.size() - 1;
+
+        int currentDayIndex = dayToIndex(currentDay);
+
+        while (low <= high) {
+            int mid = low + (high - low) / 2;
+            TimetableEntry entry = timetableEntries.get(mid);
+
+            int entryDayIndex = dayToIndex(entry.getDay());
+
+            boolean entryIsAfter =
+                (entryDayIndex > currentDayIndex) ||
+                (entryDayIndex == currentDayIndex && entry.getStartTime().isAfter(currentTime));
+
+            if (entryIsAfter) {
+                high = mid - 1;
+            } else {
+                low = mid + 1;
+            }
+        }
+
+        if (low < timetableEntries.size()) {
+            return low;
+        }
+
+        return -1;
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -498,9 +769,11 @@ public class TeacherDashboard extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
+    private javax.swing.JButton jButton8;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

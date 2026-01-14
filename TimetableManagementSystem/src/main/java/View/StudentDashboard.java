@@ -31,7 +31,8 @@ public class StudentDashboard extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(StudentDashboard.class.getName());
     private Student student;
-    ArrayList<TimetableEntry> filteredEntries = new ArrayList<>();
+    private ArrayList<TimetableEntry> filteredEntries = new ArrayList<>();
+    
     
     /**
      * Creates new form StudentDashboard
@@ -420,7 +421,7 @@ public class StudentDashboard extends javax.swing.JFrame {
         }
 
         // Call the search method in TimetableTableController to get filtered timetable entries
-        ArrayList<TimetableEntry> filteredEntries = TimetableTableController.searchTimetable(query);
+        ArrayList<TimetableEntry> filteredEntries = TimetableTableController.searchTimetable(query, AppContext.getTimetable());
 
         // Update the timetable table with filtered results
         TimetableTableController.updateFilteredTimetableTable(jTable2, filteredEntries);
@@ -463,6 +464,8 @@ public class StudentDashboard extends javax.swing.JFrame {
     }
     
     public void displayUpcomingClass() {
+        String currentDay = java.time.LocalDate.now().getDayOfWeek().toString();
+        currentDay = currentDay.substring(0,1) + currentDay.substring(1).toLowerCase();
         LocalTime currentTime = LocalDateTime.now().toLocalTime();
 
         ArrayList<TimetableEntry> timetableEntries = new ArrayList<>(AppContext.getTimetable().getEntries());
@@ -470,7 +473,7 @@ public class StudentDashboard extends javax.swing.JFrame {
         // Sort the timetable entries by start time using selection sort
         selectionSortByStartTime(timetableEntries);
 
-        int index = binarySearchForNextClass(timetableEntries, currentTime);
+        int index = binarySearchForNextClass(timetableEntries, currentDay, currentTime);
 
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         model.setRowCount(0);
@@ -507,23 +510,39 @@ public class StudentDashboard extends javax.swing.JFrame {
             timetableEntries.set(i, temp);
         }
     }
+    
+    private int dayToIndex(String day) {
+        if (day.equalsIgnoreCase("Monday")) return 1;
+        if (day.equalsIgnoreCase("Tuesday")) return 2;
+        if (day.equalsIgnoreCase("Wednesday")) return 3;
+        if (day.equalsIgnoreCase("Thursday")) return 4;
+        if (day.equalsIgnoreCase("Friday")) return 5;
+        if (day.equalsIgnoreCase("Saturday")) return 6;
+        return 7;
+    }
 
     
     // Binary search method to find the next class based on current date and time
-    private int binarySearchForNextClass(ArrayList<TimetableEntry> timetableEntries, LocalTime currentTime) {
+    private int binarySearchForNextClass(ArrayList<TimetableEntry> timetableEntries, String currentDay, LocalTime currentTime) {
         int low = 0;
         int high = timetableEntries.size() - 1;
+
+        int currentDayIndex = dayToIndex(currentDay);
 
         while (low <= high) {
             int mid = low + (high - low) / 2;
             TimetableEntry entry = timetableEntries.get(mid);
 
-            if (entry.getStartTime().isAfter(currentTime)) {
+            int entryDayIndex = dayToIndex(entry.getDay());
+
+            boolean entryIsAfter =
+                (entryDayIndex > currentDayIndex) ||
+                (entryDayIndex == currentDayIndex && entry.getStartTime().isAfter(currentTime));
+
+            if (entryIsAfter) {
                 high = mid - 1;
-            } else if (entry.getStartTime().isBefore(currentTime)) {
-                low = mid + 1;
             } else {
-                return mid;
+                low = mid + 1;
             }
         }
 

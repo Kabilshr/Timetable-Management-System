@@ -59,9 +59,29 @@ public class TimetableTableController {
     }
     
     // Search timetable entries based on the query
-    public static ArrayList<TimetableEntry> searchTimetable(String query) {
-        Timetable timetable = AppContext.getTimetable();
+    public static ArrayList<TimetableEntry> searchTimetable(String query, Timetable timetable) {
         ArrayList<TimetableEntry> entries = timetable.getEntries();
+        ArrayList<TimetableEntry> filteredEntries = new ArrayList<>();
+
+        // Loop through all entries and check if they match the search query
+        for (TimetableEntry entry : entries) {
+            if (entry.getDay().toLowerCase().contains(query.toLowerCase()) ||
+                entry.getStartTime().toString().toLowerCase().contains(query.toLowerCase()) ||
+                entry.getEndTime().toString().toLowerCase().contains(query.toLowerCase()) ||
+                entry.getClassName().toLowerCase().contains(query.toLowerCase()) ||
+                entry.getSubject().getSubjectName().toLowerCase().contains(query.toLowerCase()) ||
+                entry.getTeacher().getName().toLowerCase().contains(query.toLowerCase()) ||
+                entry.getRoom().toLowerCase().contains(query.toLowerCase())) {
+
+                filteredEntries.add(entry);  // Add entry to filtered list if it matches the query
+            }
+        }
+
+        return filteredEntries;
+    }
+    
+    // Method that accepts a list of TimetableEntry objects (filtered data)
+    public static ArrayList<TimetableEntry> searchTimetable(String query, ArrayList<TimetableEntry> entries) {
         ArrayList<TimetableEntry> filteredEntries = new ArrayList<>();
 
         // Loop through all entries and check if they match the search query
