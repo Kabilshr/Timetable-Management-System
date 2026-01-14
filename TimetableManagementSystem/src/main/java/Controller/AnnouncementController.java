@@ -20,7 +20,7 @@ public class AnnouncementController {
         model.setRowCount(0);
 
         // Get shared announcement queue
-        AnnouncementArrayList queue = AppContext.getAnnouncementQueue();
+        AnnouncementArrayList queue = AppContext.getAnnouncements();
 
         // Populate table
         for (Announcement announcement : queue.getAllAnnouncements()) {
