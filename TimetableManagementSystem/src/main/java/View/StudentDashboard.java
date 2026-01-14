@@ -4,6 +4,7 @@
  */
 package View;
 
+import Controller.AnnouncementController;
 import Controller.Logout;
 import Controller.TimetableTableController;
 import Model.AppContext;
@@ -356,6 +357,7 @@ public class StudentDashboard extends javax.swing.JFrame {
         // TODO add your handling code here:
         CardLayout cl = (CardLayout) jPanel8.getLayout();
         cl.show(jPanel8, "card2");
+        AnnouncementController.updateAnnouncementTable(jTable4);
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
