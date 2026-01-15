@@ -18,6 +18,7 @@ import java.awt.CardLayout;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Stack;
 import javax.swing.BoxLayout;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -34,6 +35,7 @@ public class TeacherDashboard extends javax.swing.JFrame {
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(TeacherDashboard.class.getName());
     private Teacher teacher;
     AnnouncementArrayList announcements = AppContext.getAnnouncements();
+    private Stack<Announcement> undoStack = new Stack<>();
     private ArrayList<TimetableEntry> filteredTimetable = new ArrayList<>();
     ArrayList<TimetableEntry> filteredEntries = new ArrayList<>();
     
@@ -80,11 +82,15 @@ public class TeacherDashboard extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jButton4 = new javax.swing.JButton();
         jButton8 = new javax.swing.JButton();
+        jButton9 = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jScrollPane4 = new javax.swing.JScrollPane();
         jTable4 = new javax.swing.JTable();
         jButton7 = new javax.swing.JButton();
+        jButton10 = new javax.swing.JButton();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        jTable5 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -258,6 +264,13 @@ public class TeacherDashboard extends javax.swing.JFrame {
             }
         });
 
+        jButton9.setText("Undo");
+        jButton9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton9ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
@@ -268,7 +281,9 @@ public class TeacherDashboard extends javax.swing.JFrame {
                     .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 589, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel4Layout.createSequentialGroup()
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 517, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(430, 430, 430)
+                            .addComponent(jButton9)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                             .addComponent(jButton6))
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel4Layout.createSequentialGroup()
                             .addGap(6, 6, 6)
@@ -315,7 +330,9 @@ public class TeacherDashboard extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton6)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton6)
+                    .addComponent(jButton9))
                 .addContainerGap(10, Short.MAX_VALUE))
         );
 
@@ -352,6 +369,34 @@ public class TeacherDashboard extends javax.swing.JFrame {
             }
         });
 
+        jButton10.setText("Undo");
+        jButton10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton10ActionPerformed(evt);
+            }
+        });
+
+        jTable5.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null},
+                {null},
+                {null},
+                {null}
+            },
+            new String [] {
+                "Undo Stack"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        jScrollPane5.setViewportView(jTable5);
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
@@ -360,11 +405,14 @@ public class TeacherDashboard extends javax.swing.JFrame {
                 .addGap(43, 43, 43)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 365, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButton10)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButton7))
                     .addComponent(jScrollPane4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 515, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING))
-                .addContainerGap(302, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(19, 19, 19))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -372,9 +420,13 @@ public class TeacherDashboard extends javax.swing.JFrame {
                 .addGap(24, 24, 24)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton7)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton7)
+                    .addComponent(jButton10))
                 .addContainerGap(263, Short.MAX_VALUE))
         );
 
@@ -431,6 +483,7 @@ public class TeacherDashboard extends javax.swing.JFrame {
         CardLayout cl = (CardLayout) jPanel1.getLayout();
         cl.show(jPanel1, "card3");
         AnnouncementController.updateAnnouncementTable(jTable4);
+        updateUndoStackTable();
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
@@ -468,6 +521,7 @@ public class TeacherDashboard extends javax.swing.JFrame {
 
         // Add to queue
         announcements.addAnnouncement(announcement);
+        undoStack.push(announcement);
 
         // Confirmation
         JOptionPane.showMessageDialog(
@@ -510,6 +564,8 @@ public class TeacherDashboard extends javax.swing.JFrame {
 
         // Add to queue
         announcements.addAnnouncement(announcement);
+        // Add to stack
+        undoStack.push(announcement);
 
         // Confirmation
         JOptionPane.showMessageDialog(
@@ -518,7 +574,8 @@ public class TeacherDashboard extends javax.swing.JFrame {
             "Success",
             JOptionPane.INFORMATION_MESSAGE
         );
-        AnnouncementController.updateAnnouncementTable(jTable1);
+        AnnouncementController.updateAnnouncementTable(jTable4);
+        updateUndoStackTable();
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
@@ -569,6 +626,41 @@ public class TeacherDashboard extends javax.swing.JFrame {
         searchTimetable(query);
     }//GEN-LAST:event_jButton5ActionPerformed
 
+    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+        undoLastAnnouncement();
+    }//GEN-LAST:event_jButton9ActionPerformed
+
+    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
+        undoLastAnnouncement();
+    }//GEN-LAST:event_jButton10ActionPerformed
+
+    private void undoLastAnnouncement() {
+        if (undoStack.isEmpty()) {
+            JOptionPane.showMessageDialog(
+                this,
+                "No announcements to undo.",
+                "Undo",
+                JOptionPane.INFORMATION_MESSAGE
+            );
+            return;
+        }
+
+        Announcement lastAnnouncement = undoStack.pop();
+        announcements.getAllAnnouncements().remove(lastAnnouncement);
+
+        AnnouncementController.updateAnnouncementTable(jTable3);
+        AnnouncementController.updateAnnouncementTable(jTable4);
+        updateUndoStackTable();
+
+
+        JOptionPane.showMessageDialog(
+            this,
+            "Last announcement undone.",
+            "Undo Successful",
+            JOptionPane.INFORMATION_MESSAGE
+        );
+    }
+    
     public void searchTimetable(String query) {
         // Ensure the query is not empty before searching
         if (query.isEmpty()) {
@@ -742,6 +834,17 @@ public class TeacherDashboard extends javax.swing.JFrame {
         return -1;
     }
     
+    private void updateUndoStackTable() {
+        DefaultTableModel model = (DefaultTableModel) jTable5.getModel();
+        model.setRowCount(0);
+
+        // Top of stack should appear first in the table
+        for (int i = undoStack.size() - 1; i >= 0; i--) {
+            Announcement announcement = undoStack.get(i);
+            model.addRow(new Object[]{announcement.getMessage()});
+        }
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -769,6 +872,7 @@ public class TeacherDashboard extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
@@ -776,6 +880,7 @@ public class TeacherDashboard extends javax.swing.JFrame {
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
+    private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -789,10 +894,12 @@ public class TeacherDashboard extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
     private javax.swing.JTable jTable3;
     private javax.swing.JTable jTable4;
+    private javax.swing.JTable jTable5;
     private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 }
