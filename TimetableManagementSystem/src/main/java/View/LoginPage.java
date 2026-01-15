@@ -19,13 +19,17 @@ import javax.swing.*;
 public class LoginPage extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(LoginPage.class.getName());
-
+    private static boolean loaded = false;
+    
     /**
      * Creates new form LoginPage
      */
     public LoginPage() {
         initComponents();
-        initializeSampleData();
+        if (!loaded) {
+            loaded = true;
+            initializeSampleData();
+        }
     }
 
     /**

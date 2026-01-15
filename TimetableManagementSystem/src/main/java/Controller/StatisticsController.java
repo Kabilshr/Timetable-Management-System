@@ -18,4 +18,8 @@ public class StatisticsController {
     public static int getTotalTeachers() {
         return AppContext.getTeachers().size();
     }
+    
+    public static int getTotalSubjects() {
+        return AppContext.getSubjects().size();
+    }
 }

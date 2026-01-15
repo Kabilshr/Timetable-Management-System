@@ -715,6 +715,7 @@ public class TeacherDashboard extends javax.swing.JFrame {
         // Get the list of timetable entries
         ArrayList<TimetableEntry> timetableEntries = new ArrayList<>(AppContext.getTimetable().getEntries());
 
+        filteredTimetable.clear();
         // Filter the timetable by the logged-in teacher
         for (TimetableEntry entry : timetableEntries) {
             if (entry.getTeacher().getUserId().equals(loggedInTeacher.getUserId())) {
