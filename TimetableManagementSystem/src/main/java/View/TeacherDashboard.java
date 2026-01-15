@@ -422,6 +422,8 @@ public class TeacherDashboard extends javax.swing.JFrame {
         // TODO add your handling code here:
         CardLayout cl = (CardLayout) jPanel1.getLayout();
         cl.show(jPanel1, "card2");
+        filterTeacherTimetable(this.teacher);
+        TimetableTableController.updateFilteredTimetableTable(jTable2, filteredTimetable);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
